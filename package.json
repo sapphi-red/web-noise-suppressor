@@ -1,0 +1,32 @@
+{
+  "name": "@sapphi-red/web-noise-suppressor",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "npm run build:js && npm run build:wasm",
+    "build:js": "tsup src/index.ts",
+    "build:wasm": "tsm scripts/copy-wasm.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sapphi-red/web-noise-suppressor.git"
+  },
+  "author": "sapphi-red",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sapphi-red/web-noise-suppressor/issues"
+  },
+  "homepage": "https://github.com/sapphi-red/web-noise-suppressor#readme",
+  "dependencies": {
+    "@sapphi-red/speex-preprocess-wasm": "^0.1.1"
+  },
+  "devDependencies": {
+    "@types/emscripten": "^1.39.6",
+    "@types/node": "^17.0.10",
+    "tsm": "^2.2.1",
+    "tsup": "^5.11.11",
+    "typescript": "^4.5.5"
+  }
+}

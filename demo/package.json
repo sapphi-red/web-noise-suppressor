@@ -1,0 +1,15 @@
+{
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@sapphi-red/web-noise-suppressor": "file:.."
+  },
+  "devDependencies": {
+    "@typescript/lib-dom": "npm:@types/web@^0.0.50",
+    "vite": "^2.7.13",
+    "vite-plugin-static-copy": "^0.1.0"
+  }
+}

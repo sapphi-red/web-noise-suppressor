@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover" />
+    <title>web-noise-suppressor demo</title>
+  </head>
+
+  <body>
+    <h2>Noise suppressor</h2>
+    <form id="form">
+      <div>
+        <h3>WebRTC Options</h3>
+        <label>
+          <input type="checkbox" name="webrtc-noise">
+          Noise suppression
+        </label>
+        <label>
+          <input type="checkbox" name="webrtc-echo">
+          Echo cancellation
+        </label>
+      </div>
+      <div>
+        <h3>Options</h3>
+        <p>Type</p>
+        <label>
+          <input type="radio" name="type" value="disabled" checked>
+          Disabled
+        </label>
+        <label>
+          <input type="radio" name="type" value="speex">
+          Speex
+        </label>
+      </div>
+      <button id="start-button" disabled>Start</button>
+    </form>
+
+    <script src="/src/index.ts" type="module"></script>
+  </body>
+</html>
