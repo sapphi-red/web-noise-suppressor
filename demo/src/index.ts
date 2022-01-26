@@ -2,7 +2,7 @@ import {
   loadSpeex,
   createSpeexProcessorNode
 } from '@sapphi-red/web-noise-suppressor'
-import { setupVisualizer } from './visualizer';
+import { setupVisualizer } from './visualizer'
 
 //
 ;(async () => {
@@ -36,7 +36,8 @@ import { setupVisualizer } from './visualizer';
     const stream = await navigator.mediaDevices.getUserMedia({
       audio: {
         noiseSuppression: webRtcNoiseSuppression,
-        echoCancellation: webRtcEchoCancellation
+        echoCancellation: webRtcEchoCancellation,
+        autoGainControl: false
       }
     })
     const source = ctx.createMediaStreamSource(stream)
