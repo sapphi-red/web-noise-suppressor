@@ -2,6 +2,7 @@ import {
   loadSpeex,
   createSpeexProcessorNode
 } from '@sapphi-red/web-noise-suppressor'
+import { setupVisualizer } from './visualizer';
 
 //
 ;(async () => {
@@ -15,6 +16,9 @@ import {
   const $form = document.getElementById('form') as HTMLFormElement
 
   const ctx = new AudioContext()
+
+  const $canvas = document.getElementById('canvas') as HTMLCanvasElement
+  const analyzer = setupVisualizer($canvas, ctx)
 
   let speex: ScriptProcessorNode | undefined
   let gain: GainNode | undefined
@@ -57,6 +61,7 @@ import {
     } else {
       source.connect(gain)
     }
+    gain.connect(analyzer)
     gain.connect(ctx.destination)
 
     $startButton.disabled = false
