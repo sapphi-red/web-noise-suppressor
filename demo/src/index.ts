@@ -1,3 +1,4 @@
+import { SpeexPreprocessor } from '@sapphi-red/speex-preprocess-wasm'
 import {
   loadSpeex,
   createSpeexProcessorNode
@@ -20,7 +21,12 @@ import { setupVisualizer } from './visualizer'
   const $canvas = document.getElementById('canvas') as HTMLCanvasElement
   const analyzer = setupVisualizer($canvas, ctx)
 
-  let speex: ScriptProcessorNode | undefined
+  let speexs:
+    | {
+        node: ScriptProcessorNode
+        preprocessors: SpeexPreprocessor[]
+      }
+    | undefined
   let gain: GainNode | undefined
   $form.addEventListener('submit', async e => {
     e.preventDefault()
@@ -44,13 +50,16 @@ import { setupVisualizer } from './visualizer'
     console.log('2: Loaded')
 
     console.log('3: Start')
-    speex?.disconnect()
+    speexs?.node.disconnect()
+    speexs?.preprocessors.forEach(pp => {
+      pp.destroy()
+    })
     gain?.disconnect()
-    const speexs = createSpeexProcessorNode(ctx, speexModule, {
+    speexs = createSpeexProcessorNode(ctx, speexModule, {
       bufferSize: 256,
       channels: 2
     })
-    speex = speexs.node
+    const speex = speexs.node
     speexs.preprocessors.forEach(pp => {
       pp.denoise = true
     })
