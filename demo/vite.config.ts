@@ -17,6 +17,10 @@ export default defineConfig({
         {
           src: 'node_modules/@sapphi-red/web-noise-suppressor/dist/*.wasm',
           dest: 'wasms'
+        },
+        {
+          src: 'node_modules/@siguredo/rnnoise-wasm/dist/*.wasm',
+          dest: 'wasms'
         }
       ]
     })

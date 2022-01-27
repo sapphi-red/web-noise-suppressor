@@ -1,7 +1,9 @@
 import { SpeexPreprocessor } from '@sapphi-red/speex-preprocess-wasm'
 import {
   loadSpeex,
-  createSpeexProcessorNode
+  createSpeexProcessorNode,
+  loadRnnoise,
+  createRnnoiseProcessorNode
 } from '@sapphi-red/web-noise-suppressor'
 import { setupVisualizer } from './visualizer'
 
@@ -9,6 +11,7 @@ import { setupVisualizer } from './visualizer'
 ;(async () => {
   console.log('1: Setup...')
   const speexModule = await loadSpeex('/wasms/speex.wasm')
+  const rnnoiseModule = await loadRnnoise('/wasms/')
   console.log('1: Setup done')
 
   const $startButton = document.getElementById(
@@ -27,6 +30,7 @@ import { setupVisualizer } from './visualizer'
         preprocessors: SpeexPreprocessor[]
       }
     | undefined
+  let rnnoise: { node: ScriptProcessorNode; destroy: () => void } | undefined
   let gain: GainNode | undefined
   $form.addEventListener('submit', async e => {
     e.preventDefault()
@@ -54,6 +58,8 @@ import { setupVisualizer } from './visualizer'
     speexs?.preprocessors.forEach(pp => {
       pp.destroy()
     })
+    rnnoise?.node.disconnect()
+    rnnoise?.destroy()
     gain?.disconnect()
     speexs = createSpeexProcessorNode(ctx, speexModule, {
       bufferSize: 256,
@@ -63,11 +69,18 @@ import { setupVisualizer } from './visualizer'
     speexs.preprocessors.forEach(pp => {
       pp.denoise = true
     })
+    rnnoise = createRnnoiseProcessorNode(ctx, rnnoiseModule, {
+      bufferSize: 512,
+      channels: 2
+    })
     gain = new GainNode(ctx, { gain: 1 })
 
     if (type === 'speex') {
       source.connect(speex)
       speex.connect(gain)
+    } else if (type === 'rnnoise') {
+      source.connect(rnnoise.node)
+      rnnoise.node.connect(gain)
     } else {
       source.connect(gain)
     }

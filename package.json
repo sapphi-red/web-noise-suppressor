@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/sapphi-red/web-noise-suppressor#readme",
   "dependencies": {
-    "@sapphi-red/speex-preprocess-wasm": "^0.1.1"
+    "@sapphi-red/speex-preprocess-wasm": "^0.1.1",
+    "@shiguredo/rnnoise-wasm": "^2022.2.0"
   },
   "devDependencies": {
     "@types/emscripten": "^1.39.6",
