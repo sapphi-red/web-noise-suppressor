@@ -3,7 +3,8 @@ import {
   loadSpeex,
   createSpeexProcessorNode,
   loadRnnoise,
-  createRnnoiseProcessorNode
+  createRnnoiseProcessorNode,
+  createNoiseGateProcessorNode
 } from '@sapphi-red/web-noise-suppressor'
 import { setupVisualizer } from './visualizer'
 
@@ -31,6 +32,7 @@ import { setupVisualizer } from './visualizer'
       }
     | undefined
   let rnnoise: { node: ScriptProcessorNode; destroy: () => void } | undefined
+  let noiseGate: ScriptProcessorNode | undefined
   let gain: GainNode | undefined
   $form.addEventListener('submit', async e => {
     e.preventDefault()
@@ -60,6 +62,7 @@ import { setupVisualizer } from './visualizer'
     })
     rnnoise?.node.disconnect()
     rnnoise?.destroy()
+    noiseGate?.disconnect()
     gain?.disconnect()
     speexs = createSpeexProcessorNode(ctx, speexModule, {
       bufferSize: 256,
@@ -73,6 +76,13 @@ import { setupVisualizer } from './visualizer'
       bufferSize: 512,
       channels: 2
     })
+    const noiseGateO = createNoiseGateProcessorNode(ctx, {
+      theshold: -40,
+      bufferSize: 512,
+      hold: 30,
+      channels: 2
+    })
+    noiseGate = noiseGateO.node
     gain = new GainNode(ctx, { gain: 1 })
 
     if (type === 'speex') {
@@ -81,6 +91,9 @@ import { setupVisualizer } from './visualizer'
     } else if (type === 'rnnoise') {
       source.connect(rnnoise.node)
       rnnoise.node.connect(gain)
+    } else if (type === 'noiseGate') {
+      source.connect(noiseGate)
+      noiseGate.connect(gain)
     } else {
       source.connect(gain)
     }
