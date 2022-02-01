@@ -77,9 +77,10 @@ import { setupVisualizer } from './visualizer'
       channels: 2
     })
     const noiseGateO = createNoiseGateProcessorNode(ctx, {
-      threshold: -40,
-      bufferSize: 512,
+      openThreshold: -50,
+      closeThreshold: -60,
       hold: 30,
+      bufferSize: 512,
       channels: 2
     })
     noiseGate = noiseGateO.node
