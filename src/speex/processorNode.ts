@@ -21,5 +21,10 @@ export const createSpeexProcessorNode = (
     channels
   )
 
-  return { node, preprocessors: processor.preprocessors }
+  return {
+    node,
+    getProperty: processor.getProperty,
+    setProperty: processor.setProperty,
+    destroy: processor.destroy
+  }
 }

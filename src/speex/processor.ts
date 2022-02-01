@@ -20,6 +20,25 @@ export const createProcessor = (
     preprocessor.denoise = true
   }
 
+  const getProperty = <K extends keyof SpeexPreprocessor>(
+    k: K
+  ): SpeexPreprocessor[K] => {
+    return preprocessors[0]![k]
+  }
+  const setProperty = <K extends keyof SpeexPreprocessor>(
+    k: K,
+    v: SpeexPreprocessor[K]
+  ) => {
+    for (const preprocessor of preprocessors) {
+      preprocessor[k] = v
+    }
+  }
+  const destroy = () => {
+    for (const preprocessor of preprocessors) {
+      preprocessor.destroy()
+    }
+  }
+
   const process: Process = (input, output) => {
     for (let i = 0; i < channels; i++) {
       preprocessors[i]!.process(input[i]!)
@@ -27,5 +46,5 @@ export const createProcessor = (
     }
   }
 
-  return { process, preprocessors }
+  return { process, getProperty, setProperty, destroy }
 }

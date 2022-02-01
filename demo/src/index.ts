@@ -28,7 +28,7 @@ import { setupVisualizer } from './visualizer'
   let speexs:
     | {
         node: ScriptProcessorNode
-        preprocessors: SpeexPreprocessor[]
+        destroy: () => void
       }
     | undefined
   let rnnoise: { node: ScriptProcessorNode; destroy: () => void } | undefined
@@ -57,21 +57,16 @@ import { setupVisualizer } from './visualizer'
 
     console.log('3: Start')
     speexs?.node.disconnect()
-    speexs?.preprocessors.forEach(pp => {
-      pp.destroy()
-    })
+    speexs?.destroy()
     rnnoise?.node.disconnect()
     rnnoise?.destroy()
     noiseGate?.disconnect()
     gain?.disconnect()
     speexs = createSpeexProcessorNode(ctx, speexModule, {
-      bufferSize: 256,
+      bufferSize: 512,
       channels: 2
     })
     const speex = speexs.node
-    speexs.preprocessors.forEach(pp => {
-      pp.denoise = true
-    })
     rnnoise = createRnnoiseProcessorNode(ctx, rnnoiseModule, {
       bufferSize: 512,
       channels: 2
