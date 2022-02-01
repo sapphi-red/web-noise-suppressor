@@ -6,6 +6,8 @@ const getRms = (arr: Float32Array) => {
   return Math.sqrt(ave / arr.length)
 }
 
+const convertDbToRms = (db: number) => Math.pow(10, db / 20)
+
 export const createNoiseGateProcessorNode = (
   ctx: AudioContext,
   {
@@ -15,7 +17,7 @@ export const createNoiseGateProcessorNode = (
     channels
   }: { theshold: number; hold: number; bufferSize: number; channels: number }
 ) => {
-  const rawTheshold = Math.pow(10, theshold / 20)
+  const rmsTheshold = convertDbToRms(theshold)
   let held = 0
 
   const node = ctx.createScriptProcessor(bufferSize, channels, channels)
@@ -26,7 +28,7 @@ export const createNoiseGateProcessorNode = (
       inputAverage += getRms(input) / channels
     }
 
-    const overTheshold = rawTheshold < inputAverage
+    const overTheshold = rmsTheshold < inputAverage
     if (overTheshold) {
       held = 0
     } else if (held < hold) {
