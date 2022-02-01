@@ -43,6 +43,7 @@ import { setupVisualizer } from './visualizer'
     const type = formData.get('type')
     const webRtcNoiseSuppression = formData.has('webrtc-noise')
     const webRtcEchoCancellation = formData.has('webrtc-echo')
+    const enableVisualizer = formData.has('visualizer')
 
     console.log('2: Loading...')
     const stream = await navigator.mediaDevices.getUserMedia({
@@ -93,7 +94,12 @@ import { setupVisualizer } from './visualizer'
     } else {
       source.connect(gain)
     }
-    gain.connect(analyzer)
+
+    analyzer.disconnect()
+    if (enableVisualizer) {
+      gain.connect(analyzer)
+    }
+
     gain.connect(ctx.destination)
 
     $startButton.disabled = false
