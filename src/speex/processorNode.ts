@@ -1,30 +1,25 @@
-import {
-  type SpeexModule,
-  SpeexPreprocessor
-} from '@sapphi-red/speex-preprocess-wasm'
+import { type SpeexModule } from '@sapphi-red/speex-preprocess-wasm'
+import { createScriptProcessorNode } from '../utils/scriptProcessor'
+import { createProcessor } from './processor'
 
 export const createSpeexProcessorNode = (
   ctx: AudioContext,
   module: SpeexModule,
   { bufferSize, channels }: { bufferSize: number; channels: number }
 ) => {
-  const preprocessors = Array.from(
-    { length: channels },
-    () => new SpeexPreprocessor(module, bufferSize, ctx.sampleRate)
-  )
-  for (const preprocessor of preprocessors) {
-    preprocessor.denoise = true
-  }
-
-  const node = ctx.createScriptProcessor(bufferSize, channels, channels)
-  node.addEventListener('audioprocess', ({ inputBuffer, outputBuffer }) => {
-    for (let i = 0; i < channels; i++) {
-      const input = inputBuffer.getChannelData(i)
-      const output = outputBuffer.getChannelData(i)
-
-      preprocessors[i]!.process(input)
-      output.set(input)
-    }
+  const processor = createProcessor(module, {
+    bufferSize,
+    channels,
+    sampleRate: ctx.sampleRate
   })
-  return { node, preprocessors }
+
+  const node = createScriptProcessorNode(
+    ctx,
+    processor.process,
+    bufferSize,
+    channels,
+    channels
+  )
+
+  return { node, preprocessors: processor.preprocessors }
 }

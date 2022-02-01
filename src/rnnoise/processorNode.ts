@@ -1,4 +1,5 @@
 import { type Rnnoise } from '@shiguredo/rnnoise-wasm'
+import { createScriptProcessorNode } from '../utils/scriptProcessor'
 import { createProcessor } from './processor'
 
 export const createRnnoiseProcessorNode = (
@@ -6,29 +7,15 @@ export const createRnnoiseProcessorNode = (
   module: Rnnoise,
   { bufferSize, channels }: { bufferSize: number; channels: number }
 ) => {
-  if (module.frameSize > bufferSize) {
-    throw new Error(
-      `bufferSize must be more than or equal to ${module.frameSize}.`
-    )
-  }
+  const processor = createProcessor(module, { bufferSize, channels })
 
-  const processors = Array.from({ length: channels }, () =>
-    createProcessor(module, bufferSize)
+  const node = createScriptProcessorNode(
+    ctx,
+    processor.process,
+    bufferSize,
+    channels,
+    channels
   )
-  const destroy = () => {
-    for (const processor of processors) {
-      processor.destroy()
-    }
-  }
 
-  const node = ctx.createScriptProcessor(bufferSize, channels, channels)
-  node.addEventListener('audioprocess', ({ inputBuffer, outputBuffer }) => {
-    for (let i = 0; i < channels; i++) {
-      const input = inputBuffer.getChannelData(i)
-      const output = outputBuffer.getChannelData(i)
-      processors[i]!.process(input, output)
-    }
-  })
-
-  return { node, destroy }
+  return { node, destroy: processor.destroy }
 }

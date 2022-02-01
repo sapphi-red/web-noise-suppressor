@@ -1,6 +1,6 @@
-import { getRms } from '../utils/rms'
-import { createOpenCloseStateMachine } from './openCloseStateMachine'
+import { createScriptProcessorNode } from '../utils/scriptProcessor'
 import { type NoiseGateProcessorNodeOptions } from './options'
+import { createProcessor } from './processor'
 
 export const createNoiseGateProcessorNode = (
   ctx: AudioContext,
@@ -12,30 +12,20 @@ export const createNoiseGateProcessorNode = (
     channels
   }: NoiseGateProcessorNodeOptions
 ) => {
-  const openCloseStateMachine = createOpenCloseStateMachine({
+  const processor = createProcessor({
     openThreshold,
     closeThreshold,
-    hold
+    hold,
+    channels
   })
 
-  const node = ctx.createScriptProcessor(bufferSize, channels, channels)
-  node.addEventListener('audioprocess', ({ inputBuffer, outputBuffer }) => {
-    let inputAverage = 0
-    for (let i = 0; i < channels; i++) {
-      const input = inputBuffer.getChannelData(i)
-      inputAverage += getRms(input) / channels
-    }
-
-    openCloseStateMachine.next(inputAverage)
-
-    if (openCloseStateMachine.isOpen()) {
-      for (let i = 0; i < channels; i++) {
-        const input = inputBuffer.getChannelData(i)
-        const output = outputBuffer.getChannelData(i)
-        output.set(input)
-      }
-    }
-  })
+  const node = createScriptProcessorNode(
+    ctx,
+    processor.process,
+    bufferSize,
+    channels,
+    channels
+  )
 
   return { node }
 }

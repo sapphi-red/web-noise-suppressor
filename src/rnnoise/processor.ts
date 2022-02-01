@@ -1,8 +1,9 @@
 import { type Rnnoise } from '@shiguredo/rnnoise-wasm'
 import { toF16FromF32, toF32FromF16 } from '../utils/f16'
 import { Float32Slice } from '../utils/Float32Slice'
+import { type Process } from '../utils/process'
 
-export const createProcessor = (module: Rnnoise, bufferSize: number) => {
+const createSingleProcessor = (module: Rnnoise, bufferSize: number) => {
   const denoiseState = module.createDenoiseState()
   const frameSize = module.frameSize
 
@@ -39,4 +40,35 @@ export const createProcessor = (module: Rnnoise, bufferSize: number) => {
       denoiseState.destroy()
     }
   }
+}
+
+export const createProcessor = (
+  module: Rnnoise,
+  { bufferSize, channels }: { bufferSize: number; channels: number }
+) => {
+  if (module.frameSize > bufferSize) {
+    throw new Error(
+      `bufferSize must be more than or equal to ${module.frameSize}.`
+    )
+  }
+
+  const processors = Array.from({ length: channels }, () =>
+    createSingleProcessor(module, bufferSize)
+  )
+  const destroy = () => {
+    for (const processor of processors) {
+      processor.destroy()
+    }
+  }
+
+  const process: Process = (
+    input: ArrayLike<Float32Array>,
+    output: ArrayLike<Float32Array>
+  ) => {
+    for (let i = 0; i < channels; i++) {
+      processors[i]!.process(input[i]!, output[i]!)
+    }
+  }
+
+  return { process, destroy }
 }
