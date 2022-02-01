@@ -1,4 +1,3 @@
-import { SpeexPreprocessor } from '@sapphi-red/speex-preprocess-wasm'
 import {
   loadSpeex,
   createSpeexProcessorNode,
