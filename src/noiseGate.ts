@@ -1,9 +1,9 @@
-const getAbsAverage = (arr: Float32Array) => {
+const getRms = (arr: Float32Array) => {
   let ave = 0
   for (const n of arr) {
-    ave += Math.abs(n) / arr.length
+    ave += n * n
   }
-  return ave
+  return Math.sqrt(ave / arr.length)
 }
 
 export const createNoiseGateProcessorNode = (
@@ -23,7 +23,7 @@ export const createNoiseGateProcessorNode = (
     let inputAverage = 0
     for (let i = 0; i < channels; i++) {
       const input = inputBuffer.getChannelData(i)
-      inputAverage += getAbsAverage(input) / channels
+      inputAverage += getRms(input) / channels
     }
 
     const overTheshold = rawTheshold < inputAverage
