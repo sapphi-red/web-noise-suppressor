@@ -1,13 +1,7 @@
 import {
-  loadSpeexModule,
-  SpeexModule,
+  type SpeexModule,
   SpeexPreprocessor
 } from '@sapphi-red/speex-preprocess-wasm'
-
-export const loadSpeex = (path: string) =>
-  loadSpeexModule({
-    locateFile: () => path
-  })
 
 export const createSpeexProcessorNode = (
   ctx: AudioContext,

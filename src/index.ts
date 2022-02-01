@@ -1,6 +1,8 @@
-export { loadSpeex, createSpeexProcessorNode } from './speex'
-export { loadRnnoise, createRnnoiseProcessorNode } from './rnnoise'
-export {
-  type NoiseGateProcessorNodeOptions,
-  createNoiseGateProcessorNode
-} from './noiseGate'
+export { type NoiseGateProcessorNodeOptions } from './noiseGate/options'
+export { createNoiseGateProcessorNode } from './noiseGate/processorNode'
+
+export { loadRnnoise } from './rnnoise/load'
+export { createRnnoiseProcessorNode } from './rnnoise/processorNode'
+
+export { loadSpeex } from './speex/load'
+export { createSpeexProcessorNode } from './speex/processorNode'
