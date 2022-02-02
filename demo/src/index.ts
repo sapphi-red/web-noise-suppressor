@@ -3,23 +3,25 @@ import {
   createSpeexProcessorNode,
   loadRnnoise,
   createRnnoiseProcessorNode,
-  createNoiseGateProcessorNode
+  createNoiseGateWorkletNode
 } from '@sapphi-red/web-noise-suppressor'
+import noiseGateWorkletPath from '@sapphi-red/web-noise-suppressor/dist/noiseGate/workletProcessor?url'
 import { setupVisualizer } from './visualizer'
 
 //
 ;(async () => {
+  const ctx = new AudioContext()
+
   console.log('1: Setup...')
   const speexModule = await loadSpeex('/wasms/speex.wasm')
   const rnnoiseModule = await loadRnnoise('/wasms/')
+  await ctx.audioWorklet.addModule(noiseGateWorkletPath)
   console.log('1: Setup done')
 
   const $startButton = document.getElementById(
     'start-button'
   ) as HTMLButtonElement
   const $form = document.getElementById('form') as HTMLFormElement
-
-  const ctx = new AudioContext()
 
   const $canvas = document.getElementById('canvas') as HTMLCanvasElement
   const analyzer = setupVisualizer($canvas, ctx)
@@ -31,7 +33,7 @@ import { setupVisualizer } from './visualizer'
       }
     | undefined
   let rnnoise: { node: ScriptProcessorNode; destroy: () => void } | undefined
-  let noiseGate: ScriptProcessorNode | undefined
+  let noiseGate: AudioWorkletNode | undefined
   let gain: GainNode | undefined
   $form.addEventListener('submit', async e => {
     e.preventDefault()
@@ -71,11 +73,10 @@ import { setupVisualizer } from './visualizer'
       bufferSize: 512,
       channels: 2
     })
-    const noiseGateO = createNoiseGateProcessorNode(ctx, {
+    const noiseGateO = createNoiseGateWorkletNode(ctx, {
       openThreshold: -50,
       closeThreshold: -60,
       hold: 30,
-      bufferSize: 512,
       channels: 2
     })
     noiseGate = noiseGateO.node

@@ -1,6 +1,10 @@
 import { defineConfig } from 'tsup'
 
 export default defineConfig({
+  entry: [
+    'src/index.ts',
+    'src/noiseGate/workletProcessor.ts'
+  ],
   target: 'es2019',
   platform: 'browser',
   format: ['esm', 'cjs'],

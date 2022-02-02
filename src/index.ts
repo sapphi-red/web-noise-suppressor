@@ -1,5 +1,5 @@
-export { type NoiseGateProcessorNodeOptions } from './noiseGate/options'
-export { createNoiseGateProcessorNode } from './noiseGate/processorNode'
+export { type NoiseGateProcessorOptions } from './noiseGate/options'
+export { createNoiseGateWorkletNode } from './noiseGate/workletNode'
 
 export { loadRnnoise } from './rnnoise/load'
 export { createRnnoiseProcessorNode } from './rnnoise/processorNode'
