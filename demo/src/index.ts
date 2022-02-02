@@ -1,20 +1,22 @@
 import {
-  loadSpeex,
-  createSpeexProcessorNode,
+  createSpeexWorkletNode,
   loadRnnoise,
   createRnnoiseProcessorNode,
   createNoiseGateWorkletNode
 } from '@sapphi-red/web-noise-suppressor'
+import speexWorkletPath from '@sapphi-red/web-noise-suppressor/dist/speex/workletProcessor?url'
 import noiseGateWorkletPath from '@sapphi-red/web-noise-suppressor/dist/noiseGate/workletProcessor?url'
 import { setupVisualizer } from './visualizer'
+import { fetchArrayBuffer } from './utils'
 
 //
 ;(async () => {
   const ctx = new AudioContext()
 
   console.log('1: Setup...')
-  const speexModule = await loadSpeex('/wasms/speex.wasm')
+  const speexWasmBinary = await fetchArrayBuffer('/wasms/speex.wasm')
   const rnnoiseModule = await loadRnnoise('/wasms/')
+  await ctx.audioWorklet.addModule(speexWorkletPath)
   await ctx.audioWorklet.addModule(noiseGateWorkletPath)
   console.log('1: Setup done')
 
@@ -26,12 +28,7 @@ import { setupVisualizer } from './visualizer'
   const $canvas = document.getElementById('canvas') as HTMLCanvasElement
   const analyzer = setupVisualizer($canvas, ctx)
 
-  let speexs:
-    | {
-        node: ScriptProcessorNode
-        destroy: () => void
-      }
-    | undefined
+  let speex: AudioWorkletNode | undefined
   let rnnoise: { node: ScriptProcessorNode; destroy: () => void } | undefined
   let noiseGate: AudioWorkletNode | undefined
   let gain: GainNode | undefined
@@ -58,17 +55,12 @@ import { setupVisualizer } from './visualizer'
     console.log('2: Loaded')
 
     console.log('3: Start')
-    speexs?.node.disconnect()
-    speexs?.destroy()
+    speex?.disconnect()
     rnnoise?.node.disconnect()
     rnnoise?.destroy()
     noiseGate?.disconnect()
     gain?.disconnect()
-    speexs = createSpeexProcessorNode(ctx, speexModule, {
-      bufferSize: 512,
-      channels: 2
-    })
-    const speex = speexs.node
+    speex = createSpeexWorkletNode(ctx, speexWasmBinary, { channels: 2 }).node
     rnnoise = createRnnoiseProcessorNode(ctx, rnnoiseModule, {
       bufferSize: 512,
       channels: 2

@@ -3,6 +3,7 @@ import { defineConfig } from 'tsup'
 export default defineConfig({
   entry: [
     'src/index.ts',
+    'src/speex/workletProcessor.ts',
     'src/noiseGate/workletProcessor.ts'
   ],
   target: 'es2019',
