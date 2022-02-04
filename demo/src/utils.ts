@@ -20,8 +20,3 @@ export const rafIter = (): AsyncIterableIterator<void> => {
 
   return obj
 }
-
-export const fetchArrayBuffer = async (path: string) => {
-  const res = await fetch(path)
-  return res.arrayBuffer()
-}

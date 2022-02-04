@@ -6,4 +6,5 @@ export { loadRnnoise } from './rnnoise/load'
 export { createRnnoiseWorkletNode } from './rnnoise/workletNode'
 
 export { type SpeexProcessorOptions } from './speex/options'
+export { loadSpeex } from './speex/load'
 export { createSpeexWorkletNode } from './speex/workletNode'

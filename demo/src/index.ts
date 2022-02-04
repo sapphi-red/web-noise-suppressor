@@ -1,4 +1,5 @@
 import {
+  loadSpeex,
   createSpeexWorkletNode,
   loadRnnoise,
   createRnnoiseWorkletNode,
@@ -8,14 +9,13 @@ import speexWorkletPath from '@sapphi-red/web-noise-suppressor/dist/speex/workle
 import noiseGateWorkletPath from '@sapphi-red/web-noise-suppressor/dist/noiseGate/workletProcessor?url'
 import rnnoiseWorkletPath from '@sapphi-red/web-noise-suppressor/dist/rnnoise/workletProcessor?url'
 import { setupVisualizer } from './visualizer'
-import { fetchArrayBuffer } from './utils'
 
 //
 ;(async () => {
   const ctx = new AudioContext()
 
   console.log('1: Setup...')
-  const speexWasmBinary = await fetchArrayBuffer('/wasms/speex.wasm')
+  const speexWasmBinary = await loadSpeex({ path: '/wasms/speex.wasm' })
   const rnnoiseWasmBinary = await loadRnnoise({
     path: '/wasms/rnnoise.wasm',
     simdPath: '/wasms/rnnoise_simd.wasm'
