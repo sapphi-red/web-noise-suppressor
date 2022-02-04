@@ -33,6 +33,7 @@ import { setupVisualizer } from './visualizer'
   const $canvas = document.getElementById('canvas') as HTMLCanvasElement
   const analyzer = setupVisualizer($canvas, ctx)
 
+  let source: MediaStreamAudioSourceNode | undefined
   let speex: SpeexWorkletNode | undefined
   let rnnoise: RnnoiseWorkletNode | undefined
   let noiseGate: NoiseGateWorkletNode | undefined
@@ -56,7 +57,8 @@ import { setupVisualizer } from './visualizer'
         autoGainControl: false
       }
     })
-    const source = ctx.createMediaStreamSource(stream)
+    source?.disconnect()
+    source = ctx.createMediaStreamSource(stream)
     console.log('2: Loaded')
 
     console.log('3: Start')
