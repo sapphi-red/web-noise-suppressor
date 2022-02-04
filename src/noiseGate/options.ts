@@ -1,6 +1,6 @@
 export type NoiseGateProcessorOptions = {
   openThreshold: number
   closeThreshold?: number
-  hold: number
+  holdMs: number
   channels: number
 }

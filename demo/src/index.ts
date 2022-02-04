@@ -71,7 +71,7 @@ import { setupVisualizer } from './visualizer'
     const noiseGateO = createNoiseGateWorkletNode(ctx, {
       openThreshold: -50,
       closeThreshold: -60,
-      hold: 30,
+      holdMs: 90,
       channels: 2
     })
     noiseGate = noiseGateO.node

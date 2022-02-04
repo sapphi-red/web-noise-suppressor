@@ -10,14 +10,17 @@ type States = typeof States[keyof typeof States]
 export const createOpenCloseStateMachine = ({
   openThreshold,
   closeThreshold,
-  hold
+  holdMs,
+  bufferMs
 }: {
   openThreshold: number
   closeThreshold: number
-  hold: number
+  holdMs: number
+  bufferMs: number
 }) => {
   const rmsOpenThreshold = convertDbToRms(openThreshold)
   const rmsCloseThreshold = convertDbToRms(closeThreshold)
+  const hold = Math.ceil(holdMs / bufferMs)
 
   let state: States = States.CLOSED
   let held = 0

@@ -2,13 +2,17 @@ import { type Process } from '../utils/process'
 import { createProcessor } from './processor'
 import { id, type NoiseGateWorkletOptions } from './workletUtil'
 
+const AudioWorkletBufferSize = 128
+
 class NoiseGateWorkletProcessor extends AudioWorkletProcessor {
   processor: { process: Process }
 
   constructor(options: NoiseGateWorkletOptions) {
     super()
 
-    this.processor = createProcessor(options.processorOptions)
+    const bufferMs = 1000 / sampleRate * AudioWorkletBufferSize
+
+    this.processor = createProcessor(options.processorOptions, bufferMs)
   }
 
   process(

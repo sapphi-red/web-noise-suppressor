@@ -19,14 +19,14 @@ export const createNoiseGateWorkletNode = (
   {
     openThreshold,
     closeThreshold = openThreshold,
-    hold,
+    holdMs,
     channels
   }: NoiseGateProcessorOptions
 ) => {
   const node = new NoiseGateWorkletNode(ctx, {
     openThreshold,
     closeThreshold,
-    hold,
+    holdMs,
     channels
   })
   return { node }

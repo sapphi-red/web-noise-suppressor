@@ -1,22 +1,22 @@
 import { type Process } from '../utils/process'
 import { getRms } from '../utils/rms'
 import { createOpenCloseStateMachine } from './openCloseStateMachine'
+import { type NoiseGateProcessorOptions } from './options'
 
-export const createProcessor = ({
-  openThreshold,
-  closeThreshold,
-  hold,
-  channels
-}: {
-  openThreshold: number
-  closeThreshold: number
-  hold: number
-  channels: number
-}) => {
+export const createProcessor = (
+  {
+    openThreshold,
+    closeThreshold,
+    holdMs,
+    channels
+  }: Required<NoiseGateProcessorOptions>,
+  bufferMs: number
+) => {
   const openCloseStateMachine = createOpenCloseStateMachine({
     openThreshold,
     closeThreshold,
-    hold
+    holdMs,
+    bufferMs
   })
 
   const process: Process = (input, output) => {
