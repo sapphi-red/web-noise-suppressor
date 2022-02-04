@@ -3,6 +3,14 @@ import { toF16FromF32, toF32FromF16 } from '../utils/f16'
 import { Float32Slice } from '../utils/Float32Slice'
 import { type Process } from '../utils/process'
 
+const calcTotalBufferSize = (bufferSize: number, frameSize: number) => {
+  let result = 0
+  for (let i = 0; result < frameSize; i++) {
+    result += bufferSize
+  }
+  return result
+}
+
 const createSingleProcessor = (module: Rnnoise, bufferSize: number) => {
   const denoiseState = module.createDenoiseState()
   const frameSize = module.frameSize
@@ -13,28 +21,22 @@ const createSingleProcessor = (module: Rnnoise, bufferSize: number) => {
     toF32FromF16(frame)
   }
 
-  let first = true
-  const totalInputBuffer = new Float32Slice(bufferSize * 2 + frameSize)
-  const totalOutputBuffer = new Float32Slice(bufferSize * 2 + frameSize)
+  const totalBufferSize = calcTotalBufferSize(bufferSize, frameSize)
+
+  const totalBuffer = new Float32Slice(totalBufferSize)
   const rnnoiseInput = new Float32Array(frameSize)
 
   return {
     process: (inputBuffer: Float32Array, outputBuffer: Float32Array) => {
-      totalInputBuffer.append(inputBuffer)
-      if (first) {
-        first = false
+      totalBuffer.append(inputBuffer)
+      if (totalBuffer.length < totalBufferSize) {
         return
       }
 
-      let i = 0
-      for (; i + frameSize < totalInputBuffer.length; i += frameSize) {
-        rnnoiseInput.set(totalInputBuffer.subarray(i, i + frameSize))
-        processFrame(rnnoiseInput)
-        totalOutputBuffer.append(rnnoiseInput)
-      }
-      totalInputBuffer.shiftMany(i)
-
-      totalOutputBuffer.shiftMany(bufferSize, outputBuffer)
+      rnnoiseInput.set(totalBuffer.subarray(0, frameSize))
+      processFrame(rnnoiseInput)
+      outputBuffer.set(rnnoiseInput.subarray(0, bufferSize))
+      totalBuffer.shiftMany(bufferSize)
     },
     destroy: () => {
       denoiseState.destroy()
@@ -46,10 +48,9 @@ export const createProcessor = (
   module: Rnnoise,
   { bufferSize, channels }: { bufferSize: number; channels: number }
 ) => {
-  // TODO: fix this (since 480 > 128)
-  if (module.frameSize > bufferSize) {
+  if (bufferSize > module.frameSize) {
     throw new Error(
-      `bufferSize must be more than or equal to ${module.frameSize}.`
+      `bufferSize must be smaller than or equal to ${module.frameSize} (was ${bufferSize}).`
     )
   }
 
