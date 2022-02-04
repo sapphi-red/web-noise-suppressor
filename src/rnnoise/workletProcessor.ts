@@ -25,6 +25,10 @@ class SpeexWorkletProcessor extends AudioWorkletProcessor {
     outputs: Float32Array[][],
     _parameters: unknown
   ) {
+    if (inputs.length === 0 || !inputs[0] || inputs[0]?.length === 0) {
+      // no input connected
+      return true
+    }
     if (!this.processor) {
       // ignore because loading
       return true
