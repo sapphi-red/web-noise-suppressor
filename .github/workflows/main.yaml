@@ -1,0 +1,124 @@
+name: CI
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+
+jobs:
+  packages:
+    name: check npm install
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: npm
+      - name: check npm ci
+        run: npm ci
+  lint:
+    name: run lint
+    runs-on: ubuntu-latest
+    needs: [packages]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: npm
+      - name: npm ci
+        run: npm ci
+      - name: run lint
+        run: npm run lint
+  type-check:
+    name: run type-check
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: npm
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+          path: ./dist
+      - name: npm ci
+        run: npm ci
+      - name: npm ci (demo)
+        run: npm ci
+        working-directory: demo
+      - name: run type-check
+        run: npm run type-check
+
+  build:
+    name: run build
+    runs-on: ubuntu-latest
+    needs: [packages]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: npm
+      - name: npm ci
+        run: npm ci
+      - name: run build
+        run: npm run build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: ./dist
+  packages-demo:
+    name: check npm install (demo)
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: npm
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+          path: ./dist
+      - name: check npm ci
+        run: npm ci
+        working-directory: demo
+  build-demo:
+    name: run build (demo)
+    runs-on: ubuntu-latest
+    needs: [packages-demo]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: npm
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+          path: ./dist
+      - name: npm ci
+        run: npm ci
+      - name: npm ci (demo)
+        run: npm ci
+        working-directory: demo
+      - name: run build (demo)
+        run: npm run build
+        working-directory: demo
