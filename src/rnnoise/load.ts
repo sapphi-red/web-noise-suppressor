@@ -1,17 +1,22 @@
 import { simd } from 'wasm-feature-detect'
 import { fetchArrayBuffer } from '../utils/fetchArrayBuffer'
 
+type LoadRnnoiseOptions = {
+  /**
+   * url to regular wasm binary
+   */
+  url: string
+  /**
+   * url to simd wasm binary
+   */
+  simdUrl: string
+}
+
 export const loadRnnoise = async (
-  {
-    path,
-    simdPath
-  }: {
-    path: string
-    simdPath: string
-  },
+  { url, simdUrl }: LoadRnnoiseOptions,
   init?: RequestInit
 ) => {
-  const loadPath = (await simd()) ? simdPath : path
-  const binary = await fetchArrayBuffer(loadPath, init)
+  const loadUrl = (await simd()) ? simdUrl : url
+  const binary = await fetchArrayBuffer(loadUrl, init)
   return binary
 }

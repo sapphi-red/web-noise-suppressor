@@ -15,10 +15,10 @@ import { setupVisualizer } from './visualizer'
   const ctx = new AudioContext()
 
   console.log('1: Setup...')
-  const speexWasmBinary = await loadSpeex({ path: '/wasms/speex.wasm' })
+  const speexWasmBinary = await loadSpeex({ url: '/wasms/speex.wasm' })
   const rnnoiseWasmBinary = await loadRnnoise({
-    path: '/wasms/rnnoise.wasm',
-    simdPath: '/wasms/rnnoise_simd.wasm'
+    url: '/wasms/rnnoise.wasm',
+    simdUrl: '/wasms/rnnoise_simd.wasm'
   })
   await ctx.audioWorklet.addModule(speexWorkletPath)
   await ctx.audioWorklet.addModule(noiseGateWorkletPath)
