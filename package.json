@@ -9,6 +9,7 @@
     "build:js": "tsup",
     "build:wasm": "tsm scripts/copy-wasm.ts",
     "lint": "eslint --cache .",
+    "type-check": "tsc --noEmit",
     "postinstall": "patch-package"
   },
   "repository": {
