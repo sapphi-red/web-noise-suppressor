@@ -46,6 +46,7 @@ export const createProcessor = (
   module: Rnnoise,
   { bufferSize, channels }: { bufferSize: number; channels: number }
 ) => {
+  // TODO: fix this (since 480 > 128)
   if (module.frameSize > bufferSize) {
     throw new Error(
       `bufferSize must be more than or equal to ${module.frameSize}.`

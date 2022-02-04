@@ -1,11 +1,12 @@
 import {
   createSpeexWorkletNode,
   loadRnnoise,
-  createRnnoiseProcessorNode,
+  createRnnoiseWorkletNode,
   createNoiseGateWorkletNode
 } from '@sapphi-red/web-noise-suppressor'
 import speexWorkletPath from '@sapphi-red/web-noise-suppressor/dist/speex/workletProcessor?url'
 import noiseGateWorkletPath from '@sapphi-red/web-noise-suppressor/dist/noiseGate/workletProcessor?url'
+import rnnoiseWorkletPath from '@sapphi-red/web-noise-suppressor/dist/rnnoise/workletProcessor?url'
 import { setupVisualizer } from './visualizer'
 import { fetchArrayBuffer } from './utils'
 
@@ -15,9 +16,13 @@ import { fetchArrayBuffer } from './utils'
 
   console.log('1: Setup...')
   const speexWasmBinary = await fetchArrayBuffer('/wasms/speex.wasm')
-  const rnnoiseModule = await loadRnnoise('/wasms/')
+  const rnnoiseWasmBinary = await loadRnnoise({
+    path: '/wasms/rnnoise.wasm',
+    simdPath: '/wasms/rnnoise_simd.wasm'
+  })
   await ctx.audioWorklet.addModule(speexWorkletPath)
   await ctx.audioWorklet.addModule(noiseGateWorkletPath)
+  await ctx.audioWorklet.addModule(rnnoiseWorkletPath)
   console.log('1: Setup done')
 
   const $startButton = document.getElementById(
@@ -29,7 +34,7 @@ import { fetchArrayBuffer } from './utils'
   const analyzer = setupVisualizer($canvas, ctx)
 
   let speex: AudioWorkletNode | undefined
-  let rnnoise: { node: ScriptProcessorNode; destroy: () => void } | undefined
+  let rnnoise: AudioWorkletNode | undefined
   let noiseGate: AudioWorkletNode | undefined
   let gain: GainNode | undefined
   $form.addEventListener('submit', async e => {
@@ -56,15 +61,13 @@ import { fetchArrayBuffer } from './utils'
 
     console.log('3: Start')
     speex?.disconnect()
-    rnnoise?.node.disconnect()
-    rnnoise?.destroy()
+    rnnoise?.disconnect()
     noiseGate?.disconnect()
     gain?.disconnect()
     speex = createSpeexWorkletNode(ctx, speexWasmBinary, { channels: 2 }).node
-    rnnoise = createRnnoiseProcessorNode(ctx, rnnoiseModule, {
-      bufferSize: 512,
+    rnnoise = createRnnoiseWorkletNode(ctx, rnnoiseWasmBinary, {
       channels: 2
-    })
+    }).node
     const noiseGateO = createNoiseGateWorkletNode(ctx, {
       openThreshold: -50,
       closeThreshold: -60,
@@ -78,8 +81,8 @@ import { fetchArrayBuffer } from './utils'
       source.connect(speex)
       speex.connect(gain)
     } else if (type === 'rnnoise') {
-      source.connect(rnnoise.node)
-      rnnoise.node.connect(gain)
+      source.connect(rnnoise)
+      rnnoise.connect(gain)
     } else if (type === 'noiseGate') {
       source.connect(noiseGate)
       noiseGate.connect(gain)

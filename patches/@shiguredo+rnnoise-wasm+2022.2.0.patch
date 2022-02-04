@@ -1,0 +1,30 @@
+diff --git a/node_modules/@shiguredo/rnnoise-wasm/dist/rnnoise.d.ts b/node_modules/@shiguredo/rnnoise-wasm/dist/rnnoise.d.ts
+index 09c9372..9051a3d 100644
+--- a/node_modules/@shiguredo/rnnoise-wasm/dist/rnnoise.d.ts
++++ b/node_modules/@shiguredo/rnnoise-wasm/dist/rnnoise.d.ts
+@@ -31,6 +31,7 @@ declare class Rnnoise {
+      * 実行環境が WebAssembly の SIMD に対応している場合には、SIMD 版の wasm ファイルがロードされます
+      */
+     static load(options?: RnnoiseOptions): Promise<Rnnoise>;
++    static loadBinary(binary: ArrayBuffer): Promise<Rnnoise>;
+     /**
+      * ノイズ抑制を行うための {@link DenoiseState} インスタンスを生成します
+      *
+diff --git a/node_modules/@shiguredo/rnnoise-wasm/dist/rnnoise.mjs b/node_modules/@shiguredo/rnnoise-wasm/dist/rnnoise.mjs
+index e2baee4..17c4e0b 100644
+--- a/node_modules/@shiguredo/rnnoise-wasm/dist/rnnoise.mjs
++++ b/node_modules/@shiguredo/rnnoise-wasm/dist/rnnoise.mjs
+@@ -1588,6 +1588,13 @@ class Rnnoise {
+         });
+         return Promise.resolve(new Rnnoise(rnnoiseModule));
+     }
++    static async loadBinary(binary) {
++      const rnnoiseModule = await Module({
++        locateFile: file => file,
++        wasmBinary: binary
++      });
++      return new Rnnoise(rnnoiseModule);
++    }
+     /**
+      * ノイズ抑制を行うための {@link DenoiseState} インスタンスを生成します
+      *

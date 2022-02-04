@@ -7,7 +7,8 @@
   "scripts": {
     "build": "npm run build:js && npm run build:wasm",
     "build:js": "tsup",
-    "build:wasm": "tsm scripts/copy-wasm.ts"
+    "build:wasm": "tsm scripts/copy-wasm.ts",
+    "postinstall": "patch-package"
   },
   "repository": {
     "type": "git",
@@ -19,17 +20,17 @@
     "url": "https://github.com/sapphi-red/web-noise-suppressor/issues"
   },
   "homepage": "https://github.com/sapphi-red/web-noise-suppressor#readme",
-  "dependencies": {
-    "@sapphi-red/speex-preprocess-wasm": "^0.1.3",
-    "@shiguredo/rnnoise-wasm": "^2022.2.0"
-  },
   "devDependencies": {
+    "@sapphi-red/speex-preprocess-wasm": "^0.1.3",
+    "@shiguredo/rnnoise-wasm": "^2022.2.0",
     "@types/audioworklet": "^0.0.23",
     "@types/emscripten": "^1.39.6",
     "@types/node": "^17.0.10",
     "@typescript/lib-dom": "npm:@types/web@^0.0.51",
+    "patch-package": "^6.4.7",
     "tsm": "^2.2.1",
     "tsup": "^5.11.11",
-    "typescript": "^4.5.5"
+    "typescript": "^4.5.5",
+    "wasm-feature-detect": "^1.2.11"
   }
 }
