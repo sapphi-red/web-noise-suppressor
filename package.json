@@ -22,6 +22,9 @@
     "url": "https://github.com/sapphi-red/web-noise-suppressor/issues"
   },
   "homepage": "https://github.com/sapphi-red/web-noise-suppressor#readme",
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "@sapphi-red/speex-preprocess-wasm": "^0.1.3",
     "@shiguredo/rnnoise-wasm": "^2022.2.0",
