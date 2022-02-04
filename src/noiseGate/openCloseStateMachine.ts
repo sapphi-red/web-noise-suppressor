@@ -1,4 +1,4 @@
-import { convertDbToRms } from "../utils/rms"
+import { convertDbToRms } from '../utils/rms'
 
 const States = {
   CLOSED: 0,
@@ -47,13 +47,13 @@ export const createOpenCloseStateMachine = ({
           held++
         }
         break
-      default:
+      default: {
         const exhaustiveCheck: never = state
         console.error(`Unknown state: ${exhaustiveCheck}`)
+      }
     }
   }
-  const isOpen = () =>
-    state === States.OPEN || state === States.CLOSING
+  const isOpen = () => state === States.OPEN || state === States.CLOSING
 
   return { next, isOpen }
 }

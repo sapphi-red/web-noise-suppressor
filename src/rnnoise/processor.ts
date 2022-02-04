@@ -68,6 +68,7 @@ export const createProcessor = (
     output: ArrayLike<Float32Array>
   ) => {
     for (let i = 0; i < channels; i++) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       processors[i]!.process(input[i]!, output[i]!)
     }
   }

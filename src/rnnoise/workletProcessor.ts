@@ -6,7 +6,7 @@ import { id, type RnnoiseWorkletOptions } from './workletUtil'
 const AudioWorkletBufferSize = 128
 
 class SpeexWorkletProcessor extends AudioWorkletProcessor {
-  private processor: { process: Process, destroy: () => void } | undefined
+  private processor: { process: Process; destroy: () => void } | undefined
   private destroyed = false
 
   constructor(options: RnnoiseWorkletOptions) {
@@ -18,8 +18,11 @@ class SpeexWorkletProcessor extends AudioWorkletProcessor {
       }
     })
 
-    ;(async() => {
-      const rnnoiseModule = await Rnnoise.loadBinary(options.processorOptions.wasmBinary)
+    // load
+    ;(async () => {
+      const rnnoiseModule = await Rnnoise.loadBinary(
+        options.processorOptions.wasmBinary
+      )
       this.processor = createProcessor(rnnoiseModule, {
         bufferSize: AudioWorkletBufferSize,
         channels: options.processorOptions.channels
@@ -33,6 +36,7 @@ class SpeexWorkletProcessor extends AudioWorkletProcessor {
   process(
     inputs: Float32Array[][],
     outputs: Float32Array[][],
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _parameters: unknown
   ) {
     if (inputs.length === 0 || !inputs[0] || inputs[0]?.length === 0) {
@@ -44,6 +48,7 @@ class SpeexWorkletProcessor extends AudioWorkletProcessor {
       return true
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.processor.process(inputs[0]!, outputs[0]!)
     return true
   }
@@ -55,5 +60,5 @@ class SpeexWorkletProcessor extends AudioWorkletProcessor {
   }
 }
 
-// @ts-expect-error
+// @ts-expect-error seems like registerProcessor type is broken
 registerProcessor(id, SpeexWorkletProcessor)

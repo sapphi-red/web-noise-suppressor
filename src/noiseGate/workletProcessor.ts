@@ -10,7 +10,7 @@ class NoiseGateWorkletProcessor extends AudioWorkletProcessor {
   constructor(options: NoiseGateWorkletOptions) {
     super()
 
-    const bufferMs = 1000 / sampleRate * AudioWorkletBufferSize
+    const bufferMs = (1000 / sampleRate) * AudioWorkletBufferSize
 
     this.processor = createProcessor(options.processorOptions, bufferMs)
   }
@@ -18,16 +18,18 @@ class NoiseGateWorkletProcessor extends AudioWorkletProcessor {
   process(
     inputs: Float32Array[][],
     outputs: Float32Array[][],
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _parameters: unknown
   ) {
     if (inputs.length === 0 || !inputs[0] || inputs[0]?.length === 0) {
       // no input connected
       return true
     }
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.processor.process(inputs[0]!, outputs[0]!)
     return true
   }
 }
 
-// @ts-expect-error
+// @ts-expect-error seems like registerProcessor type is broken
 registerProcessor(id, NoiseGateWorkletProcessor)

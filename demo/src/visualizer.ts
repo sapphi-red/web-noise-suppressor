@@ -2,7 +2,10 @@ import { rafIter } from './utils'
 
 const FFT_SIZE = 2048
 
-export const setupVisualizer = (canvas: HTMLCanvasElement, audioCtx: AudioContext) => {
+export const setupVisualizer = (
+  canvas: HTMLCanvasElement,
+  audioCtx: AudioContext
+) => {
   const canvasCtx = canvas.getContext('2d')
   if (canvasCtx === null) {
     throw new Error('canvasCtx was null')
@@ -16,6 +19,7 @@ export const setupVisualizer = (canvas: HTMLCanvasElement, audioCtx: AudioContex
     const { height, width } = canvas
     const gap = width / analyzeResultArray.length
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     for await (const _ of rafIter()) {
       analyzer.getByteTimeDomainData(analyzeResultArray)
 

@@ -3,4 +3,5 @@ import { type RnnoiseProcessorOptions } from './options'
 
 export const id = '@sapphi-red/web-noise-suppressor/rnnoise'
 
-export type RnnoiseWorkletOptions = TypedAudioWorkletOptions<RnnoiseProcessorOptions>
+export type RnnoiseWorkletOptions =
+  TypedAudioWorkletOptions<RnnoiseProcessorOptions>
