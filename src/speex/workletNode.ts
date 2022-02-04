@@ -12,4 +12,8 @@ export class SpeexWorkletNode extends AudioWorkletNode {
     }
     super(context, id, workletOptions)
   }
+
+  destroy() {
+    this.port.postMessage('destroy')
+  }
 }

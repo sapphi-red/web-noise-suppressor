@@ -33,9 +33,9 @@ import { setupVisualizer } from './visualizer'
   const $canvas = document.getElementById('canvas') as HTMLCanvasElement
   const analyzer = setupVisualizer($canvas, ctx)
 
-  let speex: AudioWorkletNode | undefined
-  let rnnoise: AudioWorkletNode | undefined
-  let noiseGate: AudioWorkletNode | undefined
+  let speex: SpeexWorkletNode | undefined
+  let rnnoise: RnnoiseWorkletNode | undefined
+  let noiseGate: NoiseGateWorkletNode | undefined
   let gain: GainNode | undefined
   $form.addEventListener('submit', async e => {
     e.preventDefault()
@@ -60,7 +60,9 @@ import { setupVisualizer } from './visualizer'
     console.log('2: Loaded')
 
     console.log('3: Start')
+    speex?.destroy()
     speex?.disconnect()
+    rnnoise?.destroy()
     rnnoise?.disconnect()
     noiseGate?.disconnect()
     gain?.disconnect()

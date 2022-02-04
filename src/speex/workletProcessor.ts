@@ -6,10 +6,17 @@ import { id, type SpeexWorkletOptions } from './workletUtil'
 const AudioWorkletBufferSize = 128
 
 class SpeexWorkletProcessor extends AudioWorkletProcessor {
-  processor: { process: Process } | undefined
+  private processor: { process: Process, destroy: () => void } | undefined
+  private destroyed = false
 
   constructor(options: SpeexWorkletOptions) {
     super()
+
+    this.port.addEventListener('message', e => {
+      if (e.data === 'destroy') {
+        this.destroy()
+      }
+    })
 
     ;(async() => {
       const speexModule = await loadSpeexModule({
@@ -21,6 +28,9 @@ class SpeexWorkletProcessor extends AudioWorkletProcessor {
         channels: options.processorOptions.channels,
         sampleRate: sampleRate
       })
+      if (this.destroyed) {
+        this.destroy()
+      }
     })()
     // TODO: getProperty, setProperty
   }
@@ -41,6 +51,12 @@ class SpeexWorkletProcessor extends AudioWorkletProcessor {
 
     this.processor.process(inputs[0]!, outputs[0]!)
     return true
+  }
+
+  private destroy() {
+    this.destroyed = true
+    this.processor?.destroy()
+    this.processor = undefined
   }
 }
 

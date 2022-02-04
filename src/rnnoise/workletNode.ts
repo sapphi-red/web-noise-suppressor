@@ -12,4 +12,8 @@ export class RnnoiseWorkletNode extends AudioWorkletNode {
     }
     super(context, id, workletOptions)
   }
+
+  destroy() {
+    this.port.postMessage('destroy')
+  }
 }
