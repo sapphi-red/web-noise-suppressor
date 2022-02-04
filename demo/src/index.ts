@@ -38,7 +38,9 @@ import { setupVisualizer } from './visualizer'
     $startButton.disabled = true
 
     const ctx = new AudioContext()
-    ctx.resume()
+    if (ctx.state === 'suspended') {
+      ctx.resume()
+    }
 
     if (!moduleAdded) {
       moduleAdded = true
