@@ -1,10 +1,10 @@
 export { type NoiseGateProcessorOptions } from './noiseGate/options'
-export { createNoiseGateWorkletNode } from './noiseGate/workletNode'
+export { NoiseGateWorkletNode } from './noiseGate/workletNode'
 
 export { type RnnoiseProcessorOptions } from './rnnoise/options'
 export { loadRnnoise } from './rnnoise/load'
-export { createRnnoiseWorkletNode } from './rnnoise/workletNode'
+export { RnnoiseWorkletNode } from './rnnoise/workletNode'
 
 export { type SpeexProcessorOptions } from './speex/options'
 export { loadSpeex } from './speex/load'
-export { createSpeexWorkletNode } from './speex/workletNode'
+export { SpeexWorkletNode } from './speex/workletNode'

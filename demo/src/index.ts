@@ -1,9 +1,9 @@
 import {
   loadSpeex,
-  createSpeexWorkletNode,
+  SpeexWorkletNode,
   loadRnnoise,
-  createRnnoiseWorkletNode,
-  createNoiseGateWorkletNode
+  RnnoiseWorkletNode,
+  NoiseGateWorkletNode
 } from '@sapphi-red/web-noise-suppressor'
 import speexWorkletPath from '@sapphi-red/web-noise-suppressor/dist/speex/workletProcessor?url'
 import noiseGateWorkletPath from '@sapphi-red/web-noise-suppressor/dist/noiseGate/workletProcessor?url'
@@ -64,17 +64,20 @@ import { setupVisualizer } from './visualizer'
     rnnoise?.disconnect()
     noiseGate?.disconnect()
     gain?.disconnect()
-    speex = createSpeexWorkletNode(ctx, speexWasmBinary, { channels: 2 }).node
-    rnnoise = createRnnoiseWorkletNode(ctx, rnnoiseWasmBinary, {
+    speex = new SpeexWorkletNode(ctx, {
+      wasmBinary: speexWasmBinary,
       channels: 2
-    }).node
-    const noiseGateO = createNoiseGateWorkletNode(ctx, {
+    })
+    rnnoise = new RnnoiseWorkletNode(ctx, {
+      wasmBinary: rnnoiseWasmBinary,
+      channels: 2
+    })
+    noiseGate = new NoiseGateWorkletNode(ctx, {
       openThreshold: -50,
       closeThreshold: -60,
       holdMs: 90,
       channels: 2
     })
-    noiseGate = noiseGateO.node
     gain = new GainNode(ctx, { gain: 1 })
 
     if (type === 'speex') {

@@ -1,9 +1,10 @@
+import { type SpeexProcessorOptions } from './options'
 import { id, type SpeexWorkletOptions } from './workletUtil'
 
-class SpeexWorkletNode extends AudioWorkletNode {
+export class SpeexWorkletNode extends AudioWorkletNode {
   constructor(
     context: AudioContext,
-    options: Required<{ wasmBinary: ArrayBuffer; channels: number }>
+    options: Required<SpeexProcessorOptions>
   ) {
     const workletOptions: SpeexWorkletOptions = {
       outputChannelCount: [options.channels],
@@ -11,16 +12,4 @@ class SpeexWorkletNode extends AudioWorkletNode {
     }
     super(context, id, workletOptions)
   }
-}
-
-export const createSpeexWorkletNode = (
-  ctx: AudioContext,
-  wasmBinary: ArrayBuffer,
-  { channels }: { channels: number }
-) => {
-  const node = new SpeexWorkletNode(ctx, {
-    wasmBinary,
-    channels
-  })
-  return { node }
 }

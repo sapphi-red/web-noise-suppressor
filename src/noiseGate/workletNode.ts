@@ -1,7 +1,7 @@
 import { NoiseGateProcessorOptions } from './options'
 import { id, type NoiseGateWorkletOptions } from './workletUtil'
 
-class NoiseGateWorkletNode extends AudioWorkletNode {
+export class NoiseGateWorkletNode extends AudioWorkletNode {
   constructor(
     context: AudioContext,
     options: Required<NoiseGateProcessorOptions>
@@ -12,22 +12,4 @@ class NoiseGateWorkletNode extends AudioWorkletNode {
     }
     super(context, id, workletOptions)
   }
-}
-
-export const createNoiseGateWorkletNode = (
-  ctx: AudioContext,
-  {
-    openThreshold,
-    closeThreshold = openThreshold,
-    holdMs,
-    channels
-  }: NoiseGateProcessorOptions
-) => {
-  const node = new NoiseGateWorkletNode(ctx, {
-    openThreshold,
-    closeThreshold,
-    holdMs,
-    channels
-  })
-  return { node }
 }

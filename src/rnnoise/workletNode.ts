@@ -1,7 +1,7 @@
 import { type RnnoiseProcessorOptions } from './options'
 import { id, type RnnoiseWorkletOptions } from './workletUtil'
 
-class RnnoiseWorkletNode extends AudioWorkletNode {
+export class RnnoiseWorkletNode extends AudioWorkletNode {
   constructor(
     context: AudioContext,
     options: Required<RnnoiseProcessorOptions>
@@ -12,16 +12,4 @@ class RnnoiseWorkletNode extends AudioWorkletNode {
     }
     super(context, id, workletOptions)
   }
-}
-
-export const createRnnoiseWorkletNode = (
-  ctx: AudioContext,
-  wasmBinary: ArrayBuffer,
-  { channels }: { channels: number }
-) => {
-  const node = new RnnoiseWorkletNode(ctx, {
-    wasmBinary,
-    channels
-  })
-  return { node }
 }
