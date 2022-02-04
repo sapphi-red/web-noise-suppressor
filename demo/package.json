@@ -2,7 +2,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "build:all": "cd .. && npm run build && cd demo && npm run build"
   },
   "dependencies": {
     "@sapphi-red/web-noise-suppressor": "file:.."
