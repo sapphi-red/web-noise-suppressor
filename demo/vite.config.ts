@@ -3,8 +3,7 @@ import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 export default defineConfig({
   build: {
-    target: 'es2019',
-    assetsInlineLimit: 0
+    target: 'es2019'
   },
   plugins: [
     viteStaticCopy({

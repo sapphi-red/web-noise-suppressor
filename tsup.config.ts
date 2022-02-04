@@ -12,6 +12,7 @@ export default defineConfig({
   format: ['esm', 'cjs'],
   dts: true,
   sourcemap: true,
+  splitting: false, // to prevent "import" inside worklet which breaks vite
   external: ['fs', 'path'],
   define: {
     window: '{}' // to be detected as ENVIRONMENT_IS_WEB with EmscriptenModule
