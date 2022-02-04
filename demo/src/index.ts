@@ -34,7 +34,11 @@ import { setupVisualizer } from './visualizer'
   let gain: GainNode | undefined
   let analyzer: AnalyserNode | undefined
   $form.addEventListener('submit', async e => {
+    e.preventDefault()
+    $startButton.disabled = true
+
     const ctx = new AudioContext()
+    ctx.resume()
 
     if (!moduleAdded) {
       moduleAdded = true
@@ -47,10 +51,6 @@ import { setupVisualizer } from './visualizer'
     if (!analyzer) {
       analyzer = setupVisualizer($canvas, ctx)
     }
-
-    e.preventDefault()
-    $startButton.disabled = true
-    ctx.resume()
 
     const formData = new FormData($form)
     const type = formData.get('type')
