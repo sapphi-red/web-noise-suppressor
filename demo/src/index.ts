@@ -10,9 +10,28 @@ import noiseGateWorkletPath from '@sapphi-red/web-noise-suppressor/dist/noiseGat
 import rnnoiseWorkletPath from '@sapphi-red/web-noise-suppressor/dist/rnnoise/workletProcessor?url'
 import { setupVisualizer } from './visualizer'
 
+const pageParam = new URLSearchParams(location.search)
+
+const sampleRateParam = pageParam.get('sample-rate') ?? 'NaN'
+const sampleRateParamNum = +sampleRateParam
+const sampleRate = Number.isNaN(sampleRateParamNum)
+  ? undefined
+  : sampleRateParamNum
+
+const sampleRateOptions = document.querySelectorAll<HTMLInputElement>(
+  '[type="radio"][name="webrtc-sampleRate"]'
+)
+for (const sampleRateOption of sampleRateOptions) {
+  sampleRateOption.checked = sampleRateOption.value === sampleRateParam
+  sampleRateOption.addEventListener('click', () => {
+    pageParam.set('sample-rate', sampleRateOption.value)
+    location.search = pageParam.toString()
+  })
+}
+
 //
 ;(async () => {
-  const ctx = new AudioContext()
+  const ctx = new AudioContext({ sampleRate })
 
   console.log('1: Setup...')
   const speexWasmBinary = await loadSpeex({ url: '/wasms/speex.wasm' })
@@ -29,7 +48,6 @@ import { setupVisualizer } from './visualizer'
     'start-button'
   ) as HTMLButtonElement
   const $form = document.getElementById('form') as HTMLFormElement
-
   const $canvas = document.getElementById('canvas') as HTMLCanvasElement
   const analyzer = setupVisualizer($canvas, ctx)
 
