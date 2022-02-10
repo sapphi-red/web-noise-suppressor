@@ -1,19 +1,9 @@
 import { type Rnnoise } from '@shiguredo/rnnoise-wasm'
 import { toF16FromF32, toF32FromF16 } from '../utils/f16'
-import { Float32Slice } from '../utils/Float32Slice'
 import { type Process } from '../utils/process'
 
-const calcTotalBufferSize = (bufferSize: number, frameSize: number) => {
-  let result = 0
-  for (let i = 0; result < frameSize; i++) {
-    result += bufferSize
-  }
-  return result
-}
-
-const createSingleProcessor = (module: Rnnoise, bufferSize: number) => {
+const createSingleProcessor = (module: Rnnoise) => {
   const denoiseState = module.createDenoiseState()
-  const frameSize = module.frameSize
 
   const processFrame = (frame: Float32Array) => {
     toF16FromF32(frame)
@@ -21,22 +11,31 @@ const createSingleProcessor = (module: Rnnoise, bufferSize: number) => {
     toF32FromF16(frame)
   }
 
-  const totalBufferSize = calcTotalBufferSize(bufferSize, frameSize)
+  const bufferSize = 128
+  const frameSize = 480
+  // "(Math.floor(frameSize / bufferSize) + 1) * bufferSize" is the first multiple of 128 after 480
+  const delay =
+    (Math.floor(frameSize / bufferSize) + 1) * bufferSize + bufferSize
+  const totalBufferSize = 1920
+  const totalBuffer = new Float32Array(totalBufferSize)
 
-  const totalBuffer = new Float32Slice(totalBufferSize)
-  const rnnoiseInput = new Float32Array(frameSize)
+  let input = 0
+  let pos = totalBufferSize - frameSize * 2
 
   return {
     process: (inputBuffer: Float32Array, outputBuffer: Float32Array) => {
-      totalBuffer.append(inputBuffer)
-      if (totalBuffer.length < totalBufferSize) {
-        return
-      }
+      totalBuffer.set(inputBuffer, input)
+      input = (input + bufferSize) % totalBufferSize
 
-      rnnoiseInput.set(totalBuffer.subarray(0, frameSize))
-      processFrame(rnnoiseInput)
-      outputBuffer.set(rnnoiseInput.subarray(0, bufferSize))
-      totalBuffer.shiftMany(bufferSize)
+      // 128, 512, 1024, 1536 are the first multiple of 128 after a multiple of 480
+      if (input === 128 || input === 512 || input === 1024 || input === 1536) {
+        pos = (pos + frameSize) % totalBufferSize
+
+        const rnnoiseInput = totalBuffer.subarray(pos, pos + frameSize)
+        processFrame(rnnoiseInput)
+      }
+      const start = (input + (totalBufferSize - delay)) % totalBufferSize
+      outputBuffer.set(totalBuffer.subarray(start, start + bufferSize))
     },
     destroy: () => {
       denoiseState.destroy()
@@ -48,14 +47,15 @@ export const createProcessor = (
   module: Rnnoise,
   { bufferSize, channels }: { bufferSize: number; channels: number }
 ) => {
-  if (bufferSize > module.frameSize) {
-    throw new Error(
-      `bufferSize must be smaller than or equal to ${module.frameSize} (was ${bufferSize}).`
-    )
+  if (module.frameSize !== 480) {
+    throw new Error(`rnnoise frameSize must be 480. (was ${module.frameSize})`)
+  }
+  if (bufferSize !== 128) {
+    throw new Error(`bufferSize must be 128. (was ${bufferSize}).`)
   }
 
   const processors = Array.from({ length: channels }, () =>
-    createSingleProcessor(module, bufferSize)
+    createSingleProcessor(module)
   )
   const destroy = () => {
     for (const processor of processors) {
