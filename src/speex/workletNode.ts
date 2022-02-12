@@ -2,9 +2,12 @@ import { type SpeexProcessorOptions } from './options'
 import { id, type SpeexWorkletOptions } from './workletUtil'
 
 export class SpeexWorkletNode extends AudioWorkletNode {
-  constructor(context: AudioContext, options: Required<SpeexProcessorOptions>) {
+  constructor(
+    context: AudioContext,
+    { maxChannels, wasmBinary }: Readonly<SpeexProcessorOptions>
+  ) {
     const workletOptions: SpeexWorkletOptions = {
-      processorOptions: options
+      processorOptions: { maxChannels, wasmBinary }
     }
     super(context, id, workletOptions)
   }
