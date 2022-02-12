@@ -20,11 +20,29 @@ npm i @sapphi-red/web-noise-suppressor # yarn add @sapphi-red/web-noise-suppress
 ```
 
 ## Usage
-See demo source code.
+This section is written only for vite users.
+```ts
+import { SpeexWorkletNode } from '@sapphi-red/web-noise-suppressor'
+import speexWorkletPath from '@sapphi-red/web-noise-suppressor/dist/speex/workletProcessor?url'
+import speexWasmPath from '@sapphi-red/web-noise-suppressor/dist/speex.wasm?url' // you can use `vite-plugin-static-copy` instead of this
 
-- [demo source code](https://github.com/sapphi-red/web-noise-suppressor/blob/main/demo/src/index.ts)
+const ctx = new AudioContext()
 
-Also you will need to copy files.
-Use CopyWebpackPlugin or vite-plugin-static-copy or something simillar.
+const speexWasmBinary = await loadSpeex({ url: speexWasmPath })
+await ctx.audioWorklet.addModule(speexWorkletPath)
 
-See [vite.config.ts used in demo](https://github.com/sapphi-red/web-noise-suppressor/blob/main/demo/vite.config.ts).
+const stream = await navigator.mediaDevices.getUserMedia({
+  audio: true
+})
+
+const source = ctx.createMediaStreamSource(stream)
+const speex = new SpeexWorkletNode(ctx, {
+  wasmBinary: speexWasmBinary,
+  maxChannels: 2
+})
+
+source.connect(speex)
+speex.connect(ctx.destination)
+```
+
+For more details, see [demo source code](https://github.com/sapphi-red/web-noise-suppressor/blob/main/demo/src/index.ts).
