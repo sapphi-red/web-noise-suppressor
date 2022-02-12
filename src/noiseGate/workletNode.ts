@@ -7,7 +7,6 @@ export class NoiseGateWorkletNode extends AudioWorkletNode {
     options: Required<NoiseGateProcessorOptions>
   ) {
     const workletOptions: NoiseGateWorkletOptions = {
-      outputChannelCount: [options.channels],
       processorOptions: options
     }
     super(context, id, workletOptions)

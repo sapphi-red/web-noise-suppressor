@@ -1,8 +1,8 @@
 export type SpeexProcessorOptions = {
   /**
-   * the number of channels
+   * the maximum number of channels
    */
-  channels: number
+  maxChannels: number
   /**
    * use `loadSpeex` to obtain binary
    */

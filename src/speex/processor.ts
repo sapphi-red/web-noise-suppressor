@@ -8,12 +8,12 @@ export const createProcessor = (
   module: SpeexModule,
   {
     bufferSize,
-    channels,
+    maxChannels,
     sampleRate
-  }: { bufferSize: number; channels: number; sampleRate: number }
+  }: { bufferSize: number; maxChannels: number; sampleRate: number }
 ) => {
   const preprocessors = Array.from(
-    { length: channels },
+    { length: maxChannels },
     () => new SpeexPreprocessor(module, bufferSize, sampleRate)
   )
   for (const preprocessor of preprocessors) {
@@ -41,6 +41,7 @@ export const createProcessor = (
   }
 
   const process: Process = (input, output) => {
+    const channels = Math.min(input.length, maxChannels)
     for (let i = 0; i < channels; i++) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       preprocessors[i]!.process(input[i]!)

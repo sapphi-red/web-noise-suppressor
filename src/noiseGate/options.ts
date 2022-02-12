@@ -16,7 +16,7 @@ export type NoiseGateProcessorOptions = {
    */
   holdMs: number
   /**
-   * the number of channels
+   * the maximum number of channels
    */
-  channels: number
+  maxChannels: number
 }

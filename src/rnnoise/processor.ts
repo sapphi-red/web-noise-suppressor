@@ -45,7 +45,7 @@ const createSingleProcessor = (module: Rnnoise) => {
 
 export const createProcessor = (
   module: Rnnoise,
-  { bufferSize, channels }: { bufferSize: number; channels: number }
+  { bufferSize, maxChannels }: { bufferSize: number; maxChannels: number }
 ) => {
   if (module.frameSize !== 480) {
     throw new Error(`rnnoise frameSize must be 480. (was ${module.frameSize})`)
@@ -54,7 +54,7 @@ export const createProcessor = (
     throw new Error(`bufferSize must be 128. (was ${bufferSize}).`)
   }
 
-  const processors = Array.from({ length: channels }, () =>
+  const processors = Array.from({ length: maxChannels }, () =>
     createSingleProcessor(module)
   )
   const destroy = () => {
@@ -67,6 +67,7 @@ export const createProcessor = (
     input: ArrayLike<Float32Array>,
     output: ArrayLike<Float32Array>
   ) => {
+    const channels = Math.min(input.length, maxChannels)
     for (let i = 0; i < channels; i++) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       processors[i]!.process(input[i]!, output[i]!)

@@ -88,17 +88,17 @@ for (const sampleRateOption of sampleRateOptions) {
     gain?.disconnect()
     speex = new SpeexWorkletNode(ctx, {
       wasmBinary: speexWasmBinary,
-      channels: 2
+      maxChannels: 2
     })
     rnnoise = new RnnoiseWorkletNode(ctx, {
       wasmBinary: rnnoiseWasmBinary,
-      channels: 2
+      maxChannels: 2
     })
     noiseGate = new NoiseGateWorkletNode(ctx, {
       openThreshold: -50,
       closeThreshold: -60,
       holdMs: 90,
-      channels: 2
+      maxChannels: 2
     })
     gain = new GainNode(ctx, { gain: 1 })
 

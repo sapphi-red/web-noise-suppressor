@@ -1,8 +1,8 @@
 export type RnnoiseProcessorOptions = {
   /**
-   * the number of channels
+   * the maximum number of channels
    */
-  channels: number
+  maxChannels: number
   /**
    * use `loadRnnoise` to obtain binary
    */

@@ -8,7 +8,7 @@ export const createProcessor = (
     openThreshold,
     closeThreshold,
     holdMs,
-    channels
+    maxChannels
   }: Required<NoiseGateProcessorOptions>,
   bufferMs: number
 ) => {
@@ -20,6 +20,8 @@ export const createProcessor = (
   })
 
   const process: Process = (input, output) => {
+    const channels = Math.min(input.length, maxChannels)
+
     let inputAverage = 0
     for (let i = 0; i < channels; i++) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

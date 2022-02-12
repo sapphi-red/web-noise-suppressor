@@ -26,7 +26,7 @@ class SpeexWorkletProcessor extends AudioWorkletProcessor {
       })
       this.processor = createProcessor(speexModule, {
         bufferSize: AudioWorkletBufferSize,
-        channels: options.processorOptions.channels,
+        maxChannels: options.processorOptions.maxChannels,
         sampleRate: sampleRate
       })
       if (this.destroyed) {

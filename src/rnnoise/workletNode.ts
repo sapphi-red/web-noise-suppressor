@@ -10,7 +10,6 @@ export class RnnoiseWorkletNode extends AudioWorkletNode {
     options: Required<RnnoiseProcessorOptions>
   ) {
     const workletOptions: RnnoiseWorkletOptions = {
-      outputChannelCount: [options.channels],
       processorOptions: options
     }
     super(context, id, workletOptions)

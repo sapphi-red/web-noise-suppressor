@@ -25,7 +25,7 @@ class SpeexWorkletProcessor extends AudioWorkletProcessor {
       )
       this.processor = createProcessor(rnnoiseModule, {
         bufferSize: AudioWorkletBufferSize,
-        channels: options.processorOptions.channels
+        maxChannels: options.processorOptions.maxChannels
       })
       if (this.destroyed) {
         this.destroy()
