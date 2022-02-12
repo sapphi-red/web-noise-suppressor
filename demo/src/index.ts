@@ -9,6 +9,9 @@ import speexWorkletPath from '@sapphi-red/web-noise-suppressor/dist/speex/workle
 import noiseGateWorkletPath from '@sapphi-red/web-noise-suppressor/dist/noiseGate/workletProcessor?url'
 import rnnoiseWorkletPath from '@sapphi-red/web-noise-suppressor/dist/rnnoise/workletProcessor?url'
 import { setupVisualizer } from './visualizer'
+import speexWasmPath from '@sapphi-red/web-noise-suppressor/dist/speex.wasm?url'
+import rnnoiseWasmPath from '@sapphi-red/web-noise-suppressor/dist/rnnoise.wasm?url'
+import rnnoiseWasmSimdPath from '@sapphi-red/web-noise-suppressor/dist/rnnoise_simd.wasm?url'
 
 const pageParam = new URLSearchParams(location.search)
 
@@ -34,10 +37,10 @@ for (const sampleRateOption of sampleRateOptions) {
   const ctx = new AudioContext({ sampleRate })
 
   console.log('1: Setup...')
-  const speexWasmBinary = await loadSpeex({ url: '/wasms/speex.wasm' })
+  const speexWasmBinary = await loadSpeex({ url: speexWasmPath })
   const rnnoiseWasmBinary = await loadRnnoise({
-    url: '/wasms/rnnoise.wasm',
-    simdUrl: '/wasms/rnnoise_simd.wasm'
+    url: rnnoiseWasmPath,
+    simdUrl: rnnoiseWasmSimdPath
   })
   await ctx.audioWorklet.addModule(speexWorkletPath)
   await ctx.audioWorklet.addModule(noiseGateWorkletPath)
