@@ -53,22 +53,22 @@
     "dist"
   ],
   "devDependencies": {
-    "@sapphi-red/speex-preprocess-wasm": "^0.2.1",
+    "@sapphi-red/speex-preprocess-wasm": "^0.2.2",
     "@shiguredo/rnnoise-wasm": "^2022.2.0",
-    "@types/audioworklet": "^0.0.23",
+    "@types/audioworklet": "^0.0.26",
     "@types/emscripten": "^1.39.6",
-    "@types/node": "^17.0.16",
-    "@typescript-eslint/eslint-plugin": "^5.11.0",
-    "@typescript-eslint/parser": "^5.11.0",
-    "@typescript/lib-dom": "npm:@types/web@^0.0.52",
-    "eslint": "^8.8.0",
-    "eslint-config-prettier": "^8.3.0",
+    "@types/node": "^17.0.23",
+    "@typescript-eslint/eslint-plugin": "^5.17.0",
+    "@typescript-eslint/parser": "^5.17.0",
+    "@typescript/lib-dom": "npm:@types/web@^0.0.60",
+    "eslint": "^8.12.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "patch-package": "^6.4.7",
-    "prettier": "^2.5.1",
+    "prettier": "^2.6.1",
     "tsm": "^2.2.1",
-    "tsup": "^5.11.13",
-    "typescript": "^4.5.5",
+    "tsup": "^5.12.1",
+    "typescript": "^4.6.3",
     "wasm-feature-detect": "^1.2.11"
   }
 }
