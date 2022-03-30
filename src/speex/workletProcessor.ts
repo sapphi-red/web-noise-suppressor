@@ -63,5 +63,4 @@ class SpeexWorkletProcessor extends AudioWorkletProcessor {
   }
 }
 
-// @ts-expect-error seems like registerProcessor type is broken
 registerProcessor(id, SpeexWorkletProcessor)
