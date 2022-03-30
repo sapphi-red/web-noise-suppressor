@@ -10,7 +10,7 @@
     "@sapphi-red/web-noise-suppressor": "file:.."
   },
   "devDependencies": {
-    "@typescript/lib-dom": "npm:@types/web@^0.0.52",
-    "vite": "^2.8.0"
+    "@typescript/lib-dom": "npm:@types/web@^0.0.60",
+    "vite": "^2.9.0"
   }
 }
