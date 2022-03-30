@@ -1,5 +1,10 @@
 # @sapphi-red/web-noise-suppressor
 
+[![npm version](https://badge.fury.io/js/@sapphi-red%2Fweb-noise-suppressor
+.svg)](https://badge.fury.io/js/@sapphi-red%2Fweb-noise-suppressor
+) ![CI](https://github.com/sapphi-red/web-noise-suppressor
+/workflows/CI/badge.svg)
+
 Noise suppressor nodes for Web Audio API.
 
 [Demo](https://web-noise-suppressor.sapphi.red)
