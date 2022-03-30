@@ -5,13 +5,13 @@ import {
   RnnoiseWorkletNode,
   NoiseGateWorkletNode
 } from '@sapphi-red/web-noise-suppressor'
-import speexWorkletPath from '@sapphi-red/web-noise-suppressor/dist/speex/workletProcessor?url'
-import noiseGateWorkletPath from '@sapphi-red/web-noise-suppressor/dist/noiseGate/workletProcessor?url'
-import rnnoiseWorkletPath from '@sapphi-red/web-noise-suppressor/dist/rnnoise/workletProcessor?url'
+import speexWorkletPath from '@sapphi-red/web-noise-suppressor/speexWorklet.js?url'
+import noiseGateWorkletPath from '@sapphi-red/web-noise-suppressor/noiseGateWorklet.js?url'
+import rnnoiseWorkletPath from '@sapphi-red/web-noise-suppressor/rnnoiseWorklet.js?url'
 import { setupVisualizer } from './visualizer'
-import speexWasmPath from '@sapphi-red/web-noise-suppressor/dist/speex.wasm?url'
-import rnnoiseWasmPath from '@sapphi-red/web-noise-suppressor/dist/rnnoise.wasm?url'
-import rnnoiseWasmSimdPath from '@sapphi-red/web-noise-suppressor/dist/rnnoise_simd.wasm?url'
+import speexWasmPath from '@sapphi-red/web-noise-suppressor/speex.wasm?url'
+import rnnoiseWasmPath from '@sapphi-red/web-noise-suppressor/rnnoise.wasm?url'
+import rnnoiseWasmSimdPath from '@sapphi-red/web-noise-suppressor/rnnoise_simd.wasm?url'
 
 const pageParam = new URLSearchParams(location.search)
 

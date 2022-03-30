@@ -2,8 +2,35 @@
   "name": "@sapphi-red/web-noise-suppressor",
   "version": "0.2.0",
   "description": "Noise suppressor nodes for Web Audio API.",
-  "main": "dist/index.js",
   "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./noiseGateWorklet.js": {
+      "require": "./dist/noiseGate/workletProcessor.cjs",
+      "import": "./dist/noiseGate/workletProcessor.js",
+      "types": "./dist/noiseGate/workletProcessor.d.ts"
+    },
+    "./rnnoiseWorklet.js": {
+      "require": "./dist/rnnoise/workletProcessor.cjs",
+      "import": "./dist/rnnoise/workletProcessor.js",
+      "types": "./dist/rnnoise/workletProcessor.d.ts"
+    },
+    "./speexWorklet.js": {
+      "require": "./dist/speex/workletProcessor.cjs",
+      "import": "./dist/speex/workletProcessor.js",
+      "types": "./dist/speex/workletProcessor.d.ts"
+    },
+    "./rnnoise_simd.wasm": "./dist/rnnoise_simd.wasm",
+    "./rnnoise.wasm": "./dist/rnnoise.wasm",
+    "./speex.wasm": "./dist/speex.wasm"
+  },
   "scripts": {
     "build": "npm run build:js && npm run build:wasm",
     "build:js": "tsup",
