@@ -1,4 +1,4 @@
-import { type RnnoiseProcessorOptions } from './options'
+import type { RnnoiseProcessorOptions } from './options'
 import { id, type RnnoiseWorkletOptions } from './workletUtil'
 
 /**

@@ -1,5 +1,5 @@
 import { Rnnoise } from '@shiguredo/rnnoise-wasm'
-import { type Process } from '../utils/process'
+import type { Process } from '../utils/process'
 import { createProcessor } from './processor'
 import { id, type RnnoiseWorkletOptions } from './workletUtil'
 

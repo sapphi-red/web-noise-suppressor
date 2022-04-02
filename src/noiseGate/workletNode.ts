@@ -1,4 +1,4 @@
-import { NoiseGateProcessorOptions } from './options'
+import type { NoiseGateProcessorOptions } from './options'
 import { id, type NoiseGateWorkletOptions } from './workletUtil'
 
 export class NoiseGateWorkletNode extends AudioWorkletNode {

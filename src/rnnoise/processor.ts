@@ -1,6 +1,6 @@
-import { type Rnnoise } from '@shiguredo/rnnoise-wasm'
+import type { Rnnoise } from '@shiguredo/rnnoise-wasm'
 import { toF16FromF32, toF32FromF16 } from '../utils/f16'
-import { type Process } from '../utils/process'
+import type { Process } from '../utils/process'
 
 const createSingleProcessor = (module: Rnnoise) => {
   const denoiseState = module.createDenoiseState()

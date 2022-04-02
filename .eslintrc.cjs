@@ -9,7 +9,8 @@ module.exports = {
     'plugin:prettier/recommended'
   ],
   rules: {
-    '@typescript-eslint/member-delimiter-style': 'off'
+    '@typescript-eslint/member-delimiter-style': 'off',
+    '@typescript-eslint/consistent-type-imports': 'error'
   },
   overrides: [
     {

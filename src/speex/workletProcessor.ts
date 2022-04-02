@@ -1,5 +1,5 @@
 import { loadSpeexModule } from '@sapphi-red/speex-preprocess-wasm'
-import { type Process } from '../utils/process'
+import type { Process } from '../utils/process'
 import { createProcessor } from './processor'
 import { id, type SpeexWorkletOptions } from './workletUtil'
 

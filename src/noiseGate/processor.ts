@@ -1,7 +1,7 @@
-import { type Process } from '../utils/process'
+import type { Process } from '../utils/process'
 import { getRms } from '../utils/rms'
 import { createOpenCloseStateMachine } from './openCloseStateMachine'
-import { type NoiseGateProcessorOptions } from './options'
+import type { NoiseGateProcessorOptions } from './options'
 
 export const createProcessor = (
   {

@@ -1,5 +1,5 @@
-import { type TypedAudioWorkletOptions } from '../utils/TypedAudioWorklet'
-import { SpeexProcessorOptions } from './options'
+import type { TypedAudioWorkletOptions } from '../utils/TypedAudioWorklet'
+import type { SpeexProcessorOptions } from './options'
 
 export const id = '@sapphi-red/web-noise-suppressor/speex'
 

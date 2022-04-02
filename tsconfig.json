@@ -12,6 +12,7 @@
     "noFallthroughCasesInSwitch": true,
     "noPropertyAccessFromIndexSignature": true,
     "noUncheckedIndexedAccess": true,
+    "importsNotUsedAsValues": "error",
     "sourceMap": true,
     "lib": ["esnext", "dom"],
     "types": ["audioworklet"]

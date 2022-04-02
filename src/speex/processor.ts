@@ -2,7 +2,7 @@ import {
   SpeexPreprocessor,
   type SpeexModule
 } from '@sapphi-red/speex-preprocess-wasm'
-import { type Process } from '../utils/process'
+import type { Process } from '../utils/process'
 
 export const createProcessor = (
   module: SpeexModule,

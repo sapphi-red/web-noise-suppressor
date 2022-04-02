@@ -1,4 +1,4 @@
-import { type Process } from '../utils/process'
+import type { Process } from '../utils/process'
 import { createProcessor } from './processor'
 import { id, type NoiseGateWorkletOptions } from './workletUtil'
 
