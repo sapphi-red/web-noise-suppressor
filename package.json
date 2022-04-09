@@ -38,7 +38,7 @@
     "lint": "eslint --cache .",
     "type-check": "tsc --noEmit",
     "test": "tsm node_modules/uvu/bin.js src .*\\.test\\.ts",
-    "postinstall": "patch-package"
+    "prepare": "patch-package"
   },
   "repository": {
     "type": "git",
