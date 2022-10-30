@@ -17,12 +17,15 @@ This package provides three noise suppression nodes.
 **This package requires AudioWorklet to work.**
 
 ## Install
+
 ```shell
 npm i @sapphi-red/web-noise-suppressor # yarn add @sapphi-red/web-noise-suppressor
 ```
 
 ## Usage
+
 This section is written only for vite users.
+
 ```ts
 import { SpeexWorkletNode } from '@sapphi-red/web-noise-suppressor'
 import speexWorkletPath from '@sapphi-red/web-noise-suppressor/speexWorklet.js?url'
