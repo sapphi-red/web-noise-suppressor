@@ -36,6 +36,7 @@
     "build:js": "tsup",
     "build:wasm": "tsx scripts/copy-wasm.ts",
     "lint": "eslint --cache .",
+    "format": "prettier --write --cache .",
     "type-check": "tsc --noEmit",
     "test": "tsx node_modules/uvu/bin.js src .*\\.test\\.ts",
     "prepare": "patch-package"
@@ -64,7 +65,6 @@
     "@typescript/lib-dom": "npm:@types/web@^0.0.76",
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.2.1",
     "patch-package": "^6.5.0",
     "prettier": "^2.7.1",
     "tsup": "^5.12.4",
