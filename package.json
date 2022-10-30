@@ -8,24 +8,21 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs"
     },
     "./noiseGateWorklet.js": {
-      "require": "./dist/noiseGate/workletProcessor.cjs",
-      "import": "./dist/noiseGate/workletProcessor.js",
-      "types": "./dist/noiseGate/workletProcessor.d.ts"
+      "types": "./dist/noiseGate/workletProcessor.d.ts",
+      "default": "./dist/noiseGate/workletProcessor.js"
     },
     "./rnnoiseWorklet.js": {
-      "require": "./dist/rnnoise/workletProcessor.cjs",
-      "import": "./dist/rnnoise/workletProcessor.js",
-      "types": "./dist/rnnoise/workletProcessor.d.ts"
+      "types": "./dist/rnnoise/workletProcessor.d.ts",
+      "default": "./dist/rnnoise/workletProcessor.js"
     },
     "./speexWorklet.js": {
-      "require": "./dist/speex/workletProcessor.cjs",
-      "import": "./dist/speex/workletProcessor.js",
-      "types": "./dist/speex/workletProcessor.d.ts"
+      "types": "./dist/speex/workletProcessor.d.ts",
+      "default": "./dist/speex/workletProcessor.js"
     },
     "./rnnoise_simd.wasm": "./dist/rnnoise_simd.wasm",
     "./rnnoise.wasm": "./dist/rnnoise.wasm",
