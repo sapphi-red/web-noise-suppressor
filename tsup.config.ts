@@ -7,7 +7,7 @@ export default defineConfig({
     'src/noiseGate/workletProcessor.ts',
     'src/rnnoise/workletProcessor.ts'
   ],
-  target: 'es2019',
+  target: 'es2020',
   platform: 'browser',
   format: ['esm', 'cjs'],
   dts: true,
