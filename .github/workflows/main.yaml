@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup-repo
-      - run: pnpm run lint
+      - run: pnpm run lint --max-warnings=0
   format:
     name: run format
     runs-on: ubuntu-latest
