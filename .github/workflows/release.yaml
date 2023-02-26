@@ -10,19 +10,11 @@ jobs:
     name: release
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@v2
-      - name: setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16.x'
-          cache: 'npm'
-          registry-url: 'https://registry.npmjs.org'
-      - name: ci
-        run: npm ci
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup-repo
       - name: build
-        run: npm run build
+        run: pnpm run build
       - name: deploy
-        run: npm publish --access public
+        run: pnpm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
