@@ -5,7 +5,7 @@ const States = {
   OPEN: 1,
   CLOSING: 2
 } as const
-type States = typeof States[keyof typeof States]
+type States = (typeof States)[keyof typeof States]
 
 export const createOpenCloseStateMachine = ({
   openThreshold,
