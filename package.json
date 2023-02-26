@@ -1,6 +1,6 @@
 {
   "name": "@sapphi-red/web-noise-suppressor",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Noise suppressor nodes for Web Audio API.",
   "type": "module",
   "main": "./dist/index.js",
