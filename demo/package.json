@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:all": "cd .. && npm run build && cd demo && npm run build",
+    "build:all": "pnpm run -w build && pnpm run build",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -29,7 +29,7 @@
     "./speex.wasm": "./dist/speex.wasm"
   },
   "scripts": {
-    "build": "npm run build:js && npm run build:wasm",
+    "build": "pnpm run build:js && pnpm run build:wasm",
     "build:js": "tsup",
     "build:wasm": "tsx scripts/copy-wasm.ts",
     "lint": "eslint --cache .",
