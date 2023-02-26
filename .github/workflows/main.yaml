@@ -55,7 +55,7 @@ jobs:
   build-demo:
     name: run build (demo)
     runs-on: ubuntu-latest
-    needs: [packages]
+    needs: [build]
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup-repo
