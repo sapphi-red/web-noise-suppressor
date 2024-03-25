@@ -25,7 +25,7 @@ class NoiseGateWorkletProcessor extends AudioWorkletProcessor {
       // no input connected
       return true
     }
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     this.processor.process(inputs[0]!, outputs[0]!)
     return true
   }

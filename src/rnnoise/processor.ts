@@ -69,7 +69,6 @@ export const createProcessor = (
   ) => {
     const channels = Math.min(input.length, maxChannels)
     for (let i = 0; i < channels; i++) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       processors[i]!.process(input[i]!, output[i]!)
     }
   }

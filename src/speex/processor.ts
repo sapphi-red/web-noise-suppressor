@@ -23,7 +23,6 @@ export const createProcessor = (
   const getProperty = <K extends keyof SpeexPreprocessor>(
     k: K
   ): SpeexPreprocessor[K] => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return preprocessors[0]![k]
   }
   const setProperty = <K extends keyof SpeexPreprocessor>(
@@ -43,9 +42,8 @@ export const createProcessor = (
   const process: Process = (input, output) => {
     const channels = Math.min(input.length, maxChannels)
     for (let i = 0; i < channels; i++) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       preprocessors[i]!.process(input[i]!)
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
       output[i]!.set(input[i]!)
     }
   }

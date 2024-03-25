@@ -24,7 +24,6 @@ export const createProcessor = (
 
     let inputAverage = 0
     for (let i = 0; i < channels; i++) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       inputAverage += getRms(input[i]!) / channels
     }
 
@@ -32,7 +31,6 @@ export const createProcessor = (
 
     if (openCloseStateMachine.isOpen()) {
       for (let i = 0; i < channels; i++) {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         output[i]!.set(input[i]!)
       }
     }
