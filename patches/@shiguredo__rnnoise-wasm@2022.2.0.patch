@@ -1,0 +1,39 @@
+diff --git a/dist/rnnoise.d.ts b/dist/rnnoise.d.ts
+index 09c9372a484322a980fee1cdbe752ba48e4c404a..9051a3d5eb6a5881bcbae2d06ea4ae6911e0e9e2 100644
+--- a/dist/rnnoise.d.ts
++++ b/dist/rnnoise.d.ts
+@@ -31,6 +31,7 @@ declare class Rnnoise {
+      * 実行環境が WebAssembly の SIMD に対応している場合には、SIMD 版の wasm ファイルがロードされます
+      */
+     static load(options?: RnnoiseOptions): Promise<Rnnoise>;
++    static loadBinary(binary: ArrayBuffer): Promise<Rnnoise>;
+     /**
+      * ノイズ抑制を行うための {@link DenoiseState} インスタンスを生成します
+      *
+@@ -70,7 +71,7 @@ declare class DenoiseState {
+      * 音声フレームにノイズ抑制処理を適用するメソッド
+      *
+      * @param frame ノイズ抑制処理の対象となる音声フレーム
+-  
++
+      * @returns
+      * VAD (voice-activity-detection) の結果を返します
+      *
+diff --git a/dist/rnnoise.mjs b/dist/rnnoise.mjs
+index e2baee46f0ddd6ccfdd0771568026bd01fbe1303..41ad3a0d302e93ad6bdbb119423aa97c25659b1e 100644
+--- a/dist/rnnoise.mjs
++++ b/dist/rnnoise.mjs
+@@ -1588,6 +1588,13 @@ class Rnnoise {
+         });
+         return Promise.resolve(new Rnnoise(rnnoiseModule));
+     }
++    static async loadBinary(binary) {
++        const rnnoiseModule = await Module({
++            locateFile: file => file,
++            wasmBinary: binary
++        });
++        return new Rnnoise(rnnoiseModule);
++    }
+     /**
+      * ノイズ抑制を行うための {@link DenoiseState} インスタンスを生成します
+      *
