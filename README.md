@@ -27,7 +27,7 @@ npm i @sapphi-red/web-noise-suppressor # yarn add @sapphi-red/web-noise-suppress
 This section is written only for vite users.
 
 ```ts
-import { SpeexWorkletNode } from '@sapphi-red/web-noise-suppressor'
+import { SpeexWorkletNode, loadSpeex } from '@sapphi-red/web-noise-suppressor'
 import speexWorkletPath from '@sapphi-red/web-noise-suppressor/speexWorklet.js?url'
 import speexWasmPath from '@sapphi-red/web-noise-suppressor/speex.wasm?url' // you can use `vite-plugin-static-copy` instead of this
 
