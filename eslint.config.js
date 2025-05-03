@@ -5,7 +5,7 @@ import eslintConfigPrettier from 'eslint-config-prettier'
 export default tseslint.config(
   {
     languageOptions: {
-      sourceType: 'module',
+      sourceType: 'module'
     },
     linterOptions: {
       reportUnusedDisableDirectives: 'error'
