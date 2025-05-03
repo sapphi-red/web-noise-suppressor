@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@typescript/lib-dom": "npm:@types/web@^0.0.142",
-    "vite": "^5.2.6"
+    "vite": "^5.2.6",
+    "wrangler": "^4.14.1"
   }
 }
