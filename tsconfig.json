@@ -14,7 +14,7 @@
     "noUncheckedIndexedAccess": true,
     "verbatimModuleSyntax": true,
     "sourceMap": true,
-    "lib": ["esnext", "dom"],
+    "lib": ["esnext", "dom", "dom.iterable"],
     "types": ["audioworklet"]
   }
 }

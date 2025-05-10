@@ -31,9 +31,6 @@ importers:
       '@types/node':
         specifier: ^22.15.3
         version: 22.15.3
-      '@typescript/lib-dom':
-        specifier: npm:@types/web@^0.0.146
-        version: '@types/web@0.0.146'
       eslint:
         specifier: ^9.26.0
         version: 9.26.0
@@ -773,9 +770,6 @@ packages:
 
   '@types/web@0.0.142':
     resolution: {integrity: sha512-QWDvMW+P3sdq8rhiw3dNyBR64O5adSY80gBjRd2xI3BADGsAFpAglblWucsGUjKVKyPm4EbYZkvFs7BRxPsBOg==}
-
-  '@types/web@0.0.146':
-    resolution: {integrity: sha512-GdhkzZelBsk6DsBodA2q/43HexfRQwHkFpq9htFRS1/OXc/ox1ucxteW9TVaNQZB89WVj3w8K03Cq/NdvXfXjw==}
 
   '@typescript-eslint/eslint-plugin@8.31.1':
     resolution: {integrity: sha512-oUlH4h1ABavI4F0Xnl8/fOtML/eu8nI2A1nYd+f+55XI0BLu+RIqKoCiZKNo6DtqZBEQm5aNKA20G3Z5w3R6GQ==}
@@ -2428,8 +2422,6 @@ snapshots:
       undici-types: 6.21.0
 
   '@types/web@0.0.142': {}
-
-  '@types/web@0.0.146': {}
 
   '@typescript-eslint/eslint-plugin@8.31.1(@typescript-eslint/parser@8.31.1(eslint@9.26.0)(typescript@5.8.3))(eslint@9.26.0)(typescript@5.8.3)':
     dependencies:
