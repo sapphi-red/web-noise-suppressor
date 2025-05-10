@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   '@shiguredo/rnnoise-wasm@2022.2.0':
-    hash: bpbz5bg6vo6too32h2miskf2q4
+    hash: 2210cd939f55719055c49f6af0d4fb888c872ea2a5f101d493866272901545a9
     path: patches/@shiguredo__rnnoise-wasm@2022.2.0.patch
 
 importers:
@@ -21,7 +21,7 @@ importers:
         version: 0.3.4
       '@shiguredo/rnnoise-wasm':
         specifier: ^2022.2.0
-        version: 2022.2.0(patch_hash=bpbz5bg6vo6too32h2miskf2q4)
+        version: 2022.2.0(patch_hash=2210cd939f55719055c49f6af0d4fb888c872ea2a5f101d493866272901545a9)
       '@types/audioworklet':
         specifier: ^0.0.75
         version: 0.0.75
@@ -2413,7 +2413,7 @@ snapshots:
 
   '@sapphi-red/speex-preprocess-wasm@0.3.4': {}
 
-  '@shiguredo/rnnoise-wasm@2022.2.0(patch_hash=bpbz5bg6vo6too32h2miskf2q4)': {}
+  '@shiguredo/rnnoise-wasm@2022.2.0(patch_hash=2210cd939f55719055c49f6af0d4fb888c872ea2a5f101d493866272901545a9)': {}
 
   '@types/audioworklet@0.0.75': {}
 
