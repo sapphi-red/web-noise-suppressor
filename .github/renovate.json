@@ -15,5 +15,5 @@
       "matchPackageNames": ["!actions/{/,}**", "!github/{/,}**"]
     }
   ],
-  "ignoreDeps": ["node"]
+  "ignoreDeps": ["node", "@oxc-project/runtime"]
 }
