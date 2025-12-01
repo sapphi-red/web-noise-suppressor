@@ -1,8 +1,8 @@
 import { defineConfig } from 'tsdown'
-import type { Options } from 'tsdown'
+import type { UserConfig } from 'tsdown'
 
 export default defineConfig(() => {
-  const common: Options = {
+  const common: UserConfig = {
     target: 'es2020',
     platform: 'browser',
     dts: true,
@@ -13,7 +13,7 @@ export default defineConfig(() => {
     }
   }
 
-  const mainEntry: Options = {
+  const mainEntry: UserConfig = {
     entry: ['src/index.ts'],
     format: ['esm', 'cjs'],
     copy: [
@@ -32,7 +32,7 @@ export default defineConfig(() => {
     ],
     ...common
   }
-  const workletEntries: Options[] = [
+  const workletEntries: UserConfig[] = [
     'src/speex/workletProcessor.ts',
     'src/noiseGate/workletProcessor.ts',
     'src/rnnoise/workletProcessor.ts'
@@ -42,6 +42,7 @@ export default defineConfig(() => {
     },
     ...common,
     format: ['esm' as const],
+    fixedExtension: false,
     minify: true
   }))
 

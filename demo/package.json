@@ -11,8 +11,8 @@
     "@sapphi-red/web-noise-suppressor": "workspace:*"
   },
   "devDependencies": {
-    "@typescript/lib-dom": "npm:@types/web@^0.0.287",
-    "vite": "^7.1.12",
-    "wrangler": "^4.45.3"
+    "@typescript/lib-dom": "npm:@types/web@^0.0.294",
+    "vite": "^7.2.4",
+    "wrangler": "^4.51.0"
   }
 }
