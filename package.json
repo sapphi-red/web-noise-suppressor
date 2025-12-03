@@ -52,7 +52,7 @@
     "@eslint/js": "^9.39.1",
     "@oxc-project/runtime": "0.75.1",
     "@sapphi-red/speex-preprocess-wasm": "^0.4.0",
-    "@shiguredo/rnnoise-wasm": "^2022.2.0",
+    "@shiguredo/rnnoise-wasm": "^2025.1.5",
     "@types/audioworklet": "^0.0.91",
     "@types/emscripten": "^1.41.5",
     "@types/node": "^22.19.1",
