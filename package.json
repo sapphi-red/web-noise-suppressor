@@ -45,6 +45,10 @@
     "url": "https://github.com/sapphi-red/web-noise-suppressor/issues"
   },
   "homepage": "https://github.com/sapphi-red/web-noise-suppressor#readme",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/sapphi-red"
+  },
   "files": [
     "dist"
   ],
