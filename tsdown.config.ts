@@ -20,15 +20,15 @@ export default defineConfig(() => {
     copy: [
       {
         from: 'node_modules/@sapphi-red/speex-preprocess-wasm/dist/speex.wasm',
-        to: 'dist/speex.wasm'
+        to: 'dist'
       },
       {
         from: 'node_modules/@shiguredo/rnnoise-wasm/dist/rnnoise.wasm',
-        to: 'dist/rnnoise.wasm'
+        to: 'dist'
       },
       {
-        from: 'node_modules/@shiguredo/rnnoise-wasm/dist/rnnoise.wasm',
-        to: 'dist/rnnoise_simd.wasm'
+        from: 'node_modules/@shiguredo/rnnoise-wasm/dist/rnnoise_simd.wasm',
+        to: 'dist'
       }
     ],
     ...common
