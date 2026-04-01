@@ -7,8 +7,10 @@ export default defineConfig(() => {
     platform: 'browser',
     dts: true,
     sourcemap: true,
-    inlineOnly: false,
-    external: ['fs', 'path'],
+    deps: {
+      neverBundle: ['fs', 'path'],
+      onlyBundle: false
+    },
     define: {
       window: '{}' // to be detected as ENVIRONMENT_IS_WEB with EmscriptenModule
     }
