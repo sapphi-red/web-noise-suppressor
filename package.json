@@ -59,18 +59,18 @@
     "@shiguredo/rnnoise-wasm": "^2022.2.0",
     "@types/audioworklet": "^0.0.100",
     "@types/emscripten": "^1.41.5",
-    "@types/node": "^22.19.20",
+    "@types/node": "^22.20.0",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",
-    "prettier": "^3.8.3",
-    "tsdown": "^0.22.2",
+    "prettier": "^3.9.4",
+    "tsdown": "^0.22.3",
     "tsx": "^4.22.4",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.60.1",
+    "typescript-eslint": "^8.62.1",
     "uvu": "^0.5.6",
     "wasm-feature-detect": "^1.8.0"
   },
-  "packageManager": "pnpm@10.34.1",
+  "packageManager": "pnpm@10.34.4",
   "pnpm": {
     "patchedDependencies": {
       "@shiguredo/rnnoise-wasm@2022.2.0": "patches/@shiguredo__rnnoise-wasm@2022.2.0.patch"
