@@ -8,7 +8,6 @@ runs:
     - name: setup Node
       uses: actions/setup-node@v7
       with:
-        node-version: 20.x
         node-version-file: '.node-version'
         cache: pnpm
         registry-url: 'https://registry.npmjs.org'
