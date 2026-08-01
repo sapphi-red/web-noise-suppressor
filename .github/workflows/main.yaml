@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/setup-repo
-      - run: pnpm prettier --check .
+      - run: pnpm format --check
   test:
     name: run test
     runs-on: ubuntu-latest
