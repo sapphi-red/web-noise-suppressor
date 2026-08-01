@@ -3,7 +3,7 @@ import {
   SpeexWorkletNode,
   loadRnnoise,
   RnnoiseWorkletNode,
-  NoiseGateWorkletNode
+  NoiseGateWorkletNode,
 } from '@sapphi-red/web-noise-suppressor'
 import speexWorkletPath from '@sapphi-red/web-noise-suppressor/speexWorklet.js?url'
 import noiseGateWorkletPath from '@sapphi-red/web-noise-suppressor/noiseGateWorklet.js?url'
@@ -17,12 +17,10 @@ const pageParam = new URLSearchParams(location.search)
 
 const sampleRateParam = pageParam.get('sample-rate') ?? 'NaN'
 const sampleRateParamNum = +sampleRateParam
-const sampleRate = Number.isNaN(sampleRateParamNum)
-  ? undefined
-  : sampleRateParamNum
+const sampleRate = Number.isNaN(sampleRateParamNum) ? undefined : sampleRateParamNum
 
 const sampleRateOptions = document.querySelectorAll<HTMLInputElement>(
-  '[type="radio"][name="webrtc-sampleRate"]'
+  '[type="radio"][name="webrtc-sampleRate"]',
 )
 for (const sampleRateOption of sampleRateOptions) {
   sampleRateOption.checked = sampleRateOption.value === sampleRateParam
@@ -40,16 +38,14 @@ for (const sampleRateOption of sampleRateOptions) {
   const speexWasmBinary = await loadSpeex({ url: speexWasmPath })
   const rnnoiseWasmBinary = await loadRnnoise({
     url: rnnoiseWasmPath,
-    simdUrl: rnnoiseWasmSimdPath
+    simdUrl: rnnoiseWasmSimdPath,
   })
   await ctx.audioWorklet.addModule(speexWorkletPath)
   await ctx.audioWorklet.addModule(noiseGateWorkletPath)
   await ctx.audioWorklet.addModule(rnnoiseWorkletPath)
   console.log('1: Setup done')
 
-  const $startButton = document.getElementById(
-    'start-button'
-  ) as HTMLButtonElement
+  const $startButton = document.getElementById('start-button') as HTMLButtonElement
   const $form = document.getElementById('form') as HTMLFormElement
   const $canvas = document.getElementById('canvas') as HTMLCanvasElement
   const analyzer = setupVisualizer($canvas, ctx)
@@ -59,7 +55,7 @@ for (const sampleRateOption of sampleRateOptions) {
   let rnnoise: RnnoiseWorkletNode | undefined
   let noiseGate: NoiseGateWorkletNode | undefined
   let gain: GainNode | undefined
-  $form.addEventListener('submit', async e => {
+  $form.addEventListener('submit', async (e) => {
     e.preventDefault()
     $startButton.disabled = true
     ctx.resume()
@@ -75,8 +71,8 @@ for (const sampleRateOption of sampleRateOptions) {
       audio: {
         noiseSuppression: webRtcNoiseSuppression,
         echoCancellation: webRtcEchoCancellation,
-        autoGainControl: false
-      }
+        autoGainControl: false,
+      },
     })
     source?.disconnect()
     source = ctx.createMediaStreamSource(stream)
@@ -91,17 +87,17 @@ for (const sampleRateOption of sampleRateOptions) {
     gain?.disconnect()
     speex = new SpeexWorkletNode(ctx, {
       wasmBinary: speexWasmBinary,
-      maxChannels: 2
+      maxChannels: 2,
     })
     rnnoise = new RnnoiseWorkletNode(ctx, {
       wasmBinary: rnnoiseWasmBinary,
-      maxChannels: 2
+      maxChannels: 2,
     })
     noiseGate = new NoiseGateWorkletNode(ctx, {
       openThreshold: -50,
       closeThreshold: -60,
       holdMs: 90,
-      maxChannels: 2
+      maxChannels: 2,
     })
     gain = new GainNode(ctx, { gain: 1 })
 

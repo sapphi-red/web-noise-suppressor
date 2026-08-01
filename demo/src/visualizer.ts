@@ -2,10 +2,7 @@ import { rafIter } from './utils'
 
 const FFT_SIZE = 2048
 
-export const setupVisualizer = (
-  canvas: HTMLCanvasElement,
-  audioCtx: AudioContext
-) => {
+export const setupVisualizer = (canvas: HTMLCanvasElement, audioCtx: AudioContext) => {
   const canvasCtx = canvas.getContext('2d')
   if (canvasCtx === null) {
     throw new Error('canvasCtx was null')

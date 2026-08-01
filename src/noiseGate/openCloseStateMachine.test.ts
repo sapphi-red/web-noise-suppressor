@@ -7,7 +7,7 @@ test('openCloseStateMachine should work', () => {
     openThreshold: 10, // openThresholdRms: approx. 3.1
     closeThreshold: 8, // closeThresholdRms: approx. 2.5
     holdMs: 5,
-    bufferMs: 10
+    bufferMs: 10,
   })
 
   sm.next(0)

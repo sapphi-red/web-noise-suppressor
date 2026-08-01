@@ -2,6 +2,23 @@
   "name": "@sapphi-red/web-noise-suppressor",
   "version": "0.3.5",
   "description": "Noise suppressor nodes for Web Audio API.",
+  "homepage": "https://github.com/sapphi-red/web-noise-suppressor#readme",
+  "bugs": {
+    "url": "https://github.com/sapphi-red/web-noise-suppressor/issues"
+  },
+  "license": "MIT",
+  "author": "sapphi-red",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sapphi-red/web-noise-suppressor.git"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/sapphi-red"
+  },
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -35,23 +52,6 @@
     "type-check": "tsc --noEmit",
     "test": "tsx node_modules/uvu/bin.js src .*\\.test\\.ts"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sapphi-red/web-noise-suppressor.git"
-  },
-  "author": "sapphi-red",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/sapphi-red/web-noise-suppressor/issues"
-  },
-  "homepage": "https://github.com/sapphi-red/web-noise-suppressor#readme",
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/sapphi-red"
-  },
-  "files": [
-    "dist"
-  ],
   "devDependencies": {
     "@eslint/js": "^9.39.4",
     "@oxc-project/runtime": "0.75.1",

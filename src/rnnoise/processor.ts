@@ -14,8 +14,7 @@ const createSingleProcessor = (module: Rnnoise) => {
   const bufferSize = 128
   const frameSize = 480
   // "(Math.floor(frameSize / bufferSize) + 1) * bufferSize" is the first multiple of 128 after 480
-  const delay =
-    (Math.floor(frameSize / bufferSize) + 1) * bufferSize + bufferSize
+  const delay = (Math.floor(frameSize / bufferSize) + 1) * bufferSize + bufferSize
   const totalBufferSize = 1920
   const totalBuffer = new Float32Array(totalBufferSize)
 
@@ -39,13 +38,13 @@ const createSingleProcessor = (module: Rnnoise) => {
     },
     destroy: () => {
       denoiseState.destroy()
-    }
+    },
   }
 }
 
 export const createProcessor = (
   module: Rnnoise,
-  { bufferSize, maxChannels }: { bufferSize: number; maxChannels: number }
+  { bufferSize, maxChannels }: { bufferSize: number; maxChannels: number },
 ) => {
   if (module.frameSize !== 480) {
     throw new Error(`rnnoise frameSize must be 480. (was ${module.frameSize})`)
@@ -54,19 +53,14 @@ export const createProcessor = (
     throw new Error(`bufferSize must be 128. (was ${bufferSize}).`)
   }
 
-  const processors = Array.from({ length: maxChannels }, () =>
-    createSingleProcessor(module)
-  )
+  const processors = Array.from({ length: maxChannels }, () => createSingleProcessor(module))
   const destroy = () => {
     for (const processor of processors) {
       processor.destroy()
     }
   }
 
-  const process: Process = (
-    input: ArrayLike<Float32Array>,
-    output: ArrayLike<Float32Array>
-  ) => {
+  const process: Process = (input: ArrayLike<Float32Array>, output: ArrayLike<Float32Array>) => {
     const channels = Math.min(input.length, maxChannels)
     for (let i = 0; i < channels; i++) {
       processors[i]!.process(input[i]!, output[i]!)

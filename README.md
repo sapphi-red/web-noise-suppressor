@@ -37,13 +37,13 @@ const speexWasmBinary = await loadSpeex({ url: speexWasmPath })
 await ctx.audioWorklet.addModule(speexWorkletPath)
 
 const stream = await navigator.mediaDevices.getUserMedia({
-  audio: true
+  audio: true,
 })
 
 const source = ctx.createMediaStreamSource(stream)
 const speex = new SpeexWorkletNode(ctx, {
   wasmBinary: speexWasmBinary,
-  maxChannels: 2
+  maxChannels: 2,
 })
 
 source.connect(speex)

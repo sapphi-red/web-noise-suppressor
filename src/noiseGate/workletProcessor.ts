@@ -19,7 +19,7 @@ class NoiseGateWorkletProcessor extends AudioWorkletProcessor {
     inputs: Float32Array[][],
     outputs: Float32Array[][],
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _parameters: unknown
+    _parameters: unknown,
   ) {
     if (inputs.length === 0 || !inputs[0] || inputs[0]?.length === 0) {
       // no input connected

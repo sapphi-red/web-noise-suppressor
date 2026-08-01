@@ -8,9 +8,9 @@ test('processor should work', () => {
       openThreshold: 10, // openThresholdRms: approx. 3.1
       closeThreshold: 8, // closeThresholdRms: approx. 2.5
       holdMs: 5,
-      maxChannels: 1
+      maxChannels: 1,
     },
-    10
+    10,
   )
 
   const input1 = [new Float32Array(3).fill(1)] as const

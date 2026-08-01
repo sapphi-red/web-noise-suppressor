@@ -8,11 +8,11 @@ export class NoiseGateWorkletNode extends AudioWorkletNode {
       openThreshold,
       closeThreshold = openThreshold,
       holdMs,
-      maxChannels
-    }: Readonly<NoiseGateProcessorOptions>
+      maxChannels,
+    }: Readonly<NoiseGateProcessorOptions>,
   ) {
     const workletOptions: NoiseGateWorkletOptions = {
-      processorOptions: { openThreshold, closeThreshold, holdMs, maxChannels }
+      processorOptions: { openThreshold, closeThreshold, holdMs, maxChannels },
     }
     super(context, id, workletOptions)
   }

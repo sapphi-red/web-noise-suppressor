@@ -12,7 +12,7 @@ class SpeexWorkletProcessor extends AudioWorkletProcessor {
   constructor(options: SpeexWorkletOptions) {
     super()
 
-    this.port.addEventListener('message', e => {
+    this.port.addEventListener('message', (e) => {
       if (e.data === 'destroy') {
         this.destroy()
       }
@@ -22,12 +22,12 @@ class SpeexWorkletProcessor extends AudioWorkletProcessor {
     ;(async () => {
       const speexModule = await loadSpeexModule({
         locateFile: (file: string) => file,
-        wasmBinary: options.processorOptions.wasmBinary
+        wasmBinary: options.processorOptions.wasmBinary,
       })
       this.processor = createProcessor(speexModule, {
         bufferSize: AudioWorkletBufferSize,
         maxChannels: options.processorOptions.maxChannels,
-        sampleRate: sampleRate
+        sampleRate: sampleRate,
       })
       if (this.destroyed) {
         this.destroy()
@@ -40,7 +40,7 @@ class SpeexWorkletProcessor extends AudioWorkletProcessor {
     inputs: Float32Array[][],
     outputs: Float32Array[][],
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _parameters: unknown
+    _parameters: unknown,
   ) {
     if (inputs.length === 0 || !inputs[0] || inputs[0]?.length === 0) {
       // no input connected

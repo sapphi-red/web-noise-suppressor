@@ -9,11 +9,11 @@ export default defineConfig(() => {
     sourcemap: true,
     deps: {
       neverBundle: ['fs', 'path'],
-      onlyBundle: false
+      onlyBundle: false,
     },
     define: {
-      window: '{}' // to be detected as ENVIRONMENT_IS_WEB with EmscriptenModule
-    }
+      window: '{}', // to be detected as ENVIRONMENT_IS_WEB with EmscriptenModule
+    },
   }
 
   const mainEntry: UserConfig = {
@@ -22,31 +22,31 @@ export default defineConfig(() => {
     copy: [
       {
         from: 'node_modules/@sapphi-red/speex-preprocess-wasm/dist/speex.wasm',
-        to: 'dist'
+        to: 'dist',
       },
       {
         from: 'node_modules/@shiguredo/rnnoise-wasm/dist/rnnoise.wasm',
-        to: 'dist'
+        to: 'dist',
       },
       {
         from: 'node_modules/@shiguredo/rnnoise-wasm/dist/rnnoise_simd.wasm',
-        to: 'dist'
-      }
+        to: 'dist',
+      },
     ],
-    ...common
+    ...common,
   }
   const workletEntries: UserConfig[] = [
     'src/speex/workletProcessor.ts',
     'src/noiseGate/workletProcessor.ts',
-    'src/rnnoise/workletProcessor.ts'
-  ].map(entry => ({
+    'src/rnnoise/workletProcessor.ts',
+  ].map((entry) => ({
     entry: {
-      [entry.replace(/^src\//, '').replace(/\.ts$/, '')]: entry
+      [entry.replace(/^src\//, '').replace(/\.ts$/, '')]: entry,
     },
     ...common,
     format: ['esm' as const],
     fixedExtension: false,
-    minify: true
+    minify: true,
   }))
 
   return [mainEntry, ...workletEntries]

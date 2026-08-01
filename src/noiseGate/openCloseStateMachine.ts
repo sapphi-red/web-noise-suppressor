@@ -3,7 +3,7 @@ import { convertDbToRms } from '../utils/rms'
 const States = {
   CLOSED: 0,
   OPEN: 1,
-  CLOSING: 2
+  CLOSING: 2,
 } as const
 type States = (typeof States)[keyof typeof States]
 
@@ -11,7 +11,7 @@ export const createOpenCloseStateMachine = ({
   openThreshold,
   closeThreshold,
   holdMs,
-  bufferMs
+  bufferMs,
 }: {
   openThreshold: number
   closeThreshold: number

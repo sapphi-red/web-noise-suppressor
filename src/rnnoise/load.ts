@@ -12,10 +12,7 @@ type LoadRnnoiseOptions = {
   simdUrl: string
 }
 
-export const loadRnnoise = async (
-  { url, simdUrl }: LoadRnnoiseOptions,
-  init?: RequestInit
-) => {
+export const loadRnnoise = async ({ url, simdUrl }: LoadRnnoiseOptions, init?: RequestInit) => {
   const loadUrl = (await simd()) ? simdUrl : url
   const binary = await fetchArrayBuffer(loadUrl, init)
   return binary

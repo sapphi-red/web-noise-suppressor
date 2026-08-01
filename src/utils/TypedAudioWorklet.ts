@@ -1,6 +1,3 @@
-export type TypedAudioWorkletOptions<T> = Omit<
-  AudioWorkletNodeOptions,
-  'processorOptions'
-> & {
+export type TypedAudioWorkletOptions<T> = Omit<AudioWorkletNodeOptions, 'processorOptions'> & {
   processorOptions: T
 }

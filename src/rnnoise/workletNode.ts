@@ -7,10 +7,10 @@ import { id, type RnnoiseWorkletOptions } from './workletUtil'
 export class RnnoiseWorkletNode extends AudioWorkletNode {
   constructor(
     context: AudioContext,
-    { maxChannels, wasmBinary }: Readonly<RnnoiseProcessorOptions>
+    { maxChannels, wasmBinary }: Readonly<RnnoiseProcessorOptions>,
   ) {
     const workletOptions: RnnoiseWorkletOptions = {
-      processorOptions: { maxChannels, wasmBinary }
+      processorOptions: { maxChannels, wasmBinary },
     }
     super(context, id, workletOptions)
   }

@@ -4,19 +4,14 @@ import { createOpenCloseStateMachine } from './openCloseStateMachine'
 import type { NoiseGateProcessorOptions } from './options'
 
 export const createProcessor = (
-  {
-    openThreshold,
-    closeThreshold,
-    holdMs,
-    maxChannels
-  }: Required<NoiseGateProcessorOptions>,
-  bufferMs: number
+  { openThreshold, closeThreshold, holdMs, maxChannels }: Required<NoiseGateProcessorOptions>,
+  bufferMs: number,
 ) => {
   const openCloseStateMachine = createOpenCloseStateMachine({
     openThreshold,
     closeThreshold,
     holdMs,
-    bufferMs
+    bufferMs,
   })
 
   const process: Process = (input, output) => {

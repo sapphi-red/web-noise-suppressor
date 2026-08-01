@@ -3,7 +3,7 @@ export const rafIter = (): AsyncIterableIterator<void> => {
 
   const obj = {
     async next() {
-      const promise = new Promise(resolve => {
+      const promise = new Promise((resolve) => {
         id = requestAnimationFrame(resolve)
       })
       await promise
@@ -15,7 +15,7 @@ export const rafIter = (): AsyncIterableIterator<void> => {
     },
     [Symbol.asyncIterator]() {
       return this
-    }
+    },
   }
 
   return obj

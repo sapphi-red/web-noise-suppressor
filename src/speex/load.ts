@@ -7,10 +7,7 @@ type LoadSpeexOptions = {
   url: string
 }
 
-export const loadSpeex = async (
-  { url }: LoadSpeexOptions,
-  init?: RequestInit
-) => {
+export const loadSpeex = async ({ url }: LoadSpeexOptions, init?: RequestInit) => {
   const binary = await fetchArrayBuffer(url, init)
   return binary
 }
