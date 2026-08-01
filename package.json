@@ -58,17 +58,17 @@
     "@shiguredo/rnnoise-wasm": "^2022.2.0",
     "@types/audioworklet": "^0.0.100",
     "@types/emscripten": "^1.41.5",
-    "@types/node": "^22.20.0",
+    "@types/node": "^22.20.1",
     "oxfmt": "^0.61.0",
     "oxlint": "^1.76.0",
     "oxlint-tsgolint": "^7.0.2001",
-    "tsdown": "^0.22.3",
-    "tsx": "^4.22.4",
+    "tsdown": "^0.22.14",
+    "tsx": "^4.23.1",
     "typescript": "^6.0.3",
     "uvu": "^0.5.6",
     "wasm-feature-detect": "^1.8.0"
   },
-  "packageManager": "pnpm@10.34.4",
+  "packageManager": "pnpm@10.34.5",
   "pnpm": {
     "patchedDependencies": {
       "@shiguredo/rnnoise-wasm@2022.2.0": "patches/@shiguredo__rnnoise-wasm@2022.2.0.patch"
