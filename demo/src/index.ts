@@ -31,7 +31,7 @@ for (const sampleRateOption of sampleRateOptions) {
 }
 
 //
-;(async () => {
+void (async () => {
   const ctx = new AudioContext({ sampleRate })
 
   console.log('1: Setup...')
@@ -55,10 +55,11 @@ for (const sampleRateOption of sampleRateOptions) {
   let rnnoise: RnnoiseWorkletNode | undefined
   let noiseGate: NoiseGateWorkletNode | undefined
   let gain: GainNode | undefined
+  // oxlint-disable-next-line typescript/no-misused-promises
   $form.addEventListener('submit', async (e) => {
     e.preventDefault()
     $startButton.disabled = true
-    ctx.resume()
+    void ctx.resume()
 
     const formData = new FormData($form)
     const type = formData.get('type')

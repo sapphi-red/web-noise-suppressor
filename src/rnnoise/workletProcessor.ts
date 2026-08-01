@@ -19,7 +19,7 @@ class SpeexWorkletProcessor extends AudioWorkletProcessor {
     })
 
     // load
-    ;(async () => {
+    void (async () => {
       const rnnoiseModule = await Rnnoise.loadBinary(options.processorOptions.wasmBinary)
       this.processor = createProcessor(rnnoiseModule, {
         bufferSize: AudioWorkletBufferSize,
@@ -31,12 +31,7 @@ class SpeexWorkletProcessor extends AudioWorkletProcessor {
     })()
   }
 
-  process(
-    inputs: Float32Array[][],
-    outputs: Float32Array[][],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _parameters: unknown,
-  ) {
+  process(inputs: Float32Array[][], outputs: Float32Array[][], _parameters: unknown) {
     if (inputs.length === 0 || !inputs[0] || inputs[0]?.length === 0) {
       // no input connected
       return true
@@ -46,7 +41,7 @@ class SpeexWorkletProcessor extends AudioWorkletProcessor {
       return true
     }
 
-    this.processor.process(inputs[0]!, outputs[0]!)
+    this.processor.process(inputs[0], outputs[0]!)
     return true
   }
 

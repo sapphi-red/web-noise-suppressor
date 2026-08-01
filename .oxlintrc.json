@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "options": {
+    "typeAware": true
+  },
+  "plugins": ["typescript", "oxc"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error"
+  },
+  "ignorePatterns": ["dist/**"],
+  "rules": {
+    "no-case-declarations": "error",
+    "no-fallthrough": "error",
+    "typescript/no-misused-promises": "error",
+    "typescript/require-await": "error",
+    "typescript/restrict-plus-operands": "error",
+    "typescript/restrict-template-expressions": ["error", { "allowNever": true }],
+    "typescript/no-unsafe-type-assertion": "off",
+    "no-shadow": "off"
+  }
+}

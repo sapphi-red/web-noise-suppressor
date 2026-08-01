@@ -9,6 +9,7 @@ export const rafIter = (): AsyncIterableIterator<void> => {
       await promise
       return { value: undefined, done: false }
     },
+    // oxlint-disable-next-line typescript/require-await
     async return() {
       cancelAnimationFrame(id)
       return { value: undefined, done: true }

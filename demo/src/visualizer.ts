@@ -12,11 +12,10 @@ export const setupVisualizer = (canvas: HTMLCanvasElement, audioCtx: AudioContex
   analyzer.fftSize = FFT_SIZE
   const analyzeResultArray = new Uint8Array(analyzer.fftSize)
 
-  ;(async () => {
+  void (async () => {
     const { height, width } = canvas
     const gap = width / analyzeResultArray.length
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     for await (const _ of rafIter()) {
       analyzer.getByteTimeDomainData(analyzeResultArray)
 
