@@ -13,6 +13,8 @@ This package provides three noise suppression nodes.
   - Using [shiguredo/rnnoise-wasm](https://github.com/shiguredo/rnnoise-wasm)
 - SpeexWorkletNode: Based on [xiph/speexdsp](https://github.com/xiph/speexdsp)'s `preprocess` function
   - Using [sapphi-red/speex-preprocess-wasm](https://github.com/sapphi-red/speex-preprocess-wasm)
+- GtcrnWorkletNode: Based on [Xiaobin-Rong/gtcrn](https://github.com/Xiaobin-Rong/gtcrn)
+  - Using [sapphi-red/gtcrn-wasm](https://github.com/sapphi-red/gtcrn-wasm)
 
 **This package requires AudioWorklet to work.**
 

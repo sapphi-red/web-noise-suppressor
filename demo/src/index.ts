@@ -3,15 +3,19 @@ import {
   SpeexWorkletNode,
   loadRnnoise,
   RnnoiseWorkletNode,
+  loadGtcrn,
+  GtcrnWorkletNode,
   NoiseGateWorkletNode,
 } from '@sapphi-red/web-noise-suppressor'
 import speexWorkletPath from '@sapphi-red/web-noise-suppressor/speexWorklet.js?url'
 import noiseGateWorkletPath from '@sapphi-red/web-noise-suppressor/noiseGateWorklet.js?url'
 import rnnoiseWorkletPath from '@sapphi-red/web-noise-suppressor/rnnoiseWorklet.js?url'
+import gtcrnWorkletPath from '@sapphi-red/web-noise-suppressor/gtcrnWorklet.js?url'
 import { setupVisualizer } from './visualizer'
 import speexWasmPath from '@sapphi-red/web-noise-suppressor/speex.wasm?url'
 import rnnoiseWasmPath from '@sapphi-red/web-noise-suppressor/rnnoise.wasm?url'
 import rnnoiseWasmSimdPath from '@sapphi-red/web-noise-suppressor/rnnoise_simd.wasm?url'
+import gtcrnWasmPath from '@sapphi-red/web-noise-suppressor/gtcrn.wasm?url'
 
 const pageParam = new URLSearchParams(location.search)
 
@@ -40,9 +44,11 @@ void (async () => {
     url: rnnoiseWasmPath,
     simdUrl: rnnoiseWasmSimdPath,
   })
+  const gtcrnWasmBinary = await loadGtcrn({ url: gtcrnWasmPath })
   await ctx.audioWorklet.addModule(speexWorkletPath)
   await ctx.audioWorklet.addModule(noiseGateWorkletPath)
   await ctx.audioWorklet.addModule(rnnoiseWorkletPath)
+  await ctx.audioWorklet.addModule(gtcrnWorkletPath)
   console.log('1: Setup done')
 
   const $startButton = document.getElementById('start-button') as HTMLButtonElement
@@ -53,6 +59,7 @@ void (async () => {
   let source: MediaStreamAudioSourceNode | undefined
   let speex: SpeexWorkletNode | undefined
   let rnnoise: RnnoiseWorkletNode | undefined
+  let gtcrn: GtcrnWorkletNode | undefined
   let noiseGate: NoiseGateWorkletNode | undefined
   let gain: GainNode | undefined
   // oxlint-disable-next-line typescript/no-misused-promises
@@ -84,6 +91,8 @@ void (async () => {
     speex?.disconnect()
     rnnoise?.destroy()
     rnnoise?.disconnect()
+    gtcrn?.destroy()
+    gtcrn?.disconnect()
     noiseGate?.disconnect()
     gain?.disconnect()
     speex = new SpeexWorkletNode(ctx, {
@@ -92,6 +101,10 @@ void (async () => {
     })
     rnnoise = new RnnoiseWorkletNode(ctx, {
       wasmBinary: rnnoiseWasmBinary,
+      maxChannels: 2,
+    })
+    gtcrn = new GtcrnWorkletNode(ctx, {
+      wasmBinary: gtcrnWasmBinary,
       maxChannels: 2,
     })
     noiseGate = new NoiseGateWorkletNode(ctx, {
@@ -108,6 +121,9 @@ void (async () => {
     } else if (type === 'rnnoise') {
       source.connect(rnnoise)
       rnnoise.connect(gain)
+    } else if (type === 'gtcrn') {
+      source.connect(gtcrn)
+      gtcrn.connect(gain)
     } else if (type === 'noiseGate') {
       source.connect(noiseGate)
       noiseGate.connect(gain)

@@ -29,6 +29,10 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
+    "./gtcrnWorklet.js": {
+      "types": "./dist/gtcrn/workletProcessor.d.ts",
+      "default": "./dist/gtcrn/workletProcessor.js"
+    },
     "./noiseGateWorklet.js": {
       "types": "./dist/noiseGate/workletProcessor.d.ts",
       "default": "./dist/noiseGate/workletProcessor.js"
@@ -41,6 +45,7 @@
       "types": "./dist/speex/workletProcessor.d.ts",
       "default": "./dist/speex/workletProcessor.js"
     },
+    "./gtcrn.wasm": "./dist/gtcrn.wasm",
     "./rnnoise_simd.wasm": "./dist/rnnoise_simd.wasm",
     "./rnnoise.wasm": "./dist/rnnoise.wasm",
     "./speex.wasm": "./dist/speex.wasm"
@@ -54,6 +59,7 @@
   },
   "devDependencies": {
     "@oxc-project/runtime": "0.75.1",
+    "@sapphi-red/gtcrn-wasm": "^0.0.2",
     "@sapphi-red/speex-preprocess-wasm": "^0.4.0",
     "@shiguredo/rnnoise-wasm": "^2022.2.0",
     "@types/audioworklet": "^0.0.100",
