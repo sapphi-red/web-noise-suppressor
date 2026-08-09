@@ -14,7 +14,9 @@ const createSingleProcessor = (module: GtcrnModule, sampleRate: number, bufferSi
   const buffersPerFrame = frameSize / bufferSize
 
   if (frameSize % bufferSize !== 0) {
-    throw new Error(`GTCRN frame size must be divisible by bufferSize. (was ${frameSize}/${bufferSize}).`)
+    throw new Error(
+      `GTCRN frame size must be divisible by bufferSize. (was ${frameSize}/${bufferSize}).`,
+    )
   }
 
   const frame = new Float32Array(frameSize)
@@ -44,14 +46,20 @@ const createSingleProcessor = (module: GtcrnModule, sampleRate: number, bufferSi
 
 export const createProcessor = (
   module: GtcrnModule,
-  { bufferSize, maxChannels, sampleRate }: { bufferSize: number; maxChannels: number; sampleRate: number },
+  {
+    bufferSize,
+    maxChannels,
+    sampleRate,
+  }: { bufferSize: number; maxChannels: number; sampleRate: number },
 ) => {
   if (bufferSize !== 128) {
     throw new Error(`bufferSize must be 128. (was ${bufferSize}).`)
   }
 
   if (sampleRate !== SAMPLE_RATE && sampleRate !== SAMPLE_RATE_48K) {
-    throw new Error(`GTCRN supports only ${SAMPLE_RATE}Hz and ${SAMPLE_RATE_48K}Hz. (was ${sampleRate}Hz).`)
+    throw new Error(
+      `GTCRN supports only ${SAMPLE_RATE}Hz and ${SAMPLE_RATE_48K}Hz. (was ${sampleRate}Hz).`,
+    )
   }
 
   const processors = Array.from({ length: maxChannels }, () =>
