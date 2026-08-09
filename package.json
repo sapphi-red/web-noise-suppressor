@@ -59,7 +59,7 @@
   },
   "devDependencies": {
     "@oxc-project/runtime": "0.75.1",
-    "@sapphi-red/gtcrn-wasm": "^0.0.2",
+    "@sapphi-red/gtcrn-wasm": "^0.0.3",
     "@sapphi-red/speex-preprocess-wasm": "^0.4.0",
     "@shiguredo/rnnoise-wasm": "^2022.2.0",
     "@types/audioworklet": "^0.0.100",
