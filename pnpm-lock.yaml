@@ -16,6 +16,9 @@ importers:
       '@oxc-project/runtime':
         specifier: 0.75.1
         version: 0.75.1
+      '@sapphi-red/gtcrn-wasm':
+        specifier: ^0.0.3
+        version: 0.0.3
       '@sapphi-red/speex-preprocess-wasm':
         specifier: ^0.4.0
         version: 0.4.0
@@ -967,6 +970,9 @@ packages:
 
   '@rolldown/pluginutils@1.0.1':
     resolution: {integrity: sha512-2j9bGt5Jh8hj+vPtgzPtl72j0yRxHAyumoo6TNfAjsLB04UtpSvPbPcDcBMxz7n+9CYB0c1GxQFxYRg2jimqGw==}
+
+  '@sapphi-red/gtcrn-wasm@0.0.3':
+    resolution: {integrity: sha512-2GRgtytMrE+UsZwuKYY9u6RfTBhYD1O7x6IG8Uh+MeVPubRpECDfzOl2CjekdUtAxg5XC6S1nFI04z3qbDZxkg==}
 
   '@sapphi-red/speex-preprocess-wasm@0.4.0':
     resolution: {integrity: sha512-VAybOqfE1m/3q+3BzpDiHuP/F5O1q0r6BosAkb2FYrBbMTiP1kWs/grELZqcIeSYa1tF5uVQzHi0hQtZUYRJVQ==}
@@ -2241,6 +2247,8 @@ snapshots:
     optional: true
 
   '@rolldown/pluginutils@1.0.1': {}
+
+  '@sapphi-red/gtcrn-wasm@0.0.3': {}
 
   '@sapphi-red/speex-preprocess-wasm@0.4.0': {}
 

@@ -21,6 +21,10 @@ export default defineConfig(() => {
     format: ['esm', 'cjs'],
     copy: [
       {
+        from: 'node_modules/@sapphi-red/gtcrn-wasm/dist/gtcrn.wasm',
+        to: 'dist',
+      },
+      {
         from: 'node_modules/@sapphi-red/speex-preprocess-wasm/dist/speex.wasm',
         to: 'dist',
       },
@@ -39,6 +43,7 @@ export default defineConfig(() => {
     'src/speex/workletProcessor.ts',
     'src/noiseGate/workletProcessor.ts',
     'src/rnnoise/workletProcessor.ts',
+    'src/gtcrn/workletProcessor.ts',
   ].map((entry) => ({
     entry: {
       [entry.replace(/^src\//, '').replace(/\.ts$/, '')]: entry,
