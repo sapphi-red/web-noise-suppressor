@@ -19,5 +19,3 @@ jobs:
         run: pnpm run build
       - name: deploy
         run: pnpm publish --access public --no-git-checks --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
