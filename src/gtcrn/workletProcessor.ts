@@ -36,6 +36,9 @@ class GtcrnWorkletProcessor extends AudioWorkletProcessor {
   }
 
   process(inputs: Float32Array[][], outputs: Float32Array[][], _parameters: unknown) {
+    if (this.destroyed) {
+      return false
+    }
     if (inputs.length === 0 || !inputs[0] || inputs[0]?.length === 0) {
       // no input connected
       return true
