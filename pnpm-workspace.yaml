@@ -1,2 +1,7 @@
 packages:
   - demo
+allowBuilds:
+  esbuild: false
+  workerd: true
+patchedDependencies:
+  "@shiguredo/rnnoise-wasm@2022.2.0": "patches/@shiguredo__rnnoise-wasm@2022.2.0.patch"

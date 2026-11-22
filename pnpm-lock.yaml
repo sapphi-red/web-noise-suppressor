@@ -171,6 +171,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@shiguredo/rnnoise-wasm@2022.2.0': 2210cd939f55719055c49f6af0d4fb888c872ea2a5f101d493866272901545a9
+
 importers:
 
   .:
@@ -186,7 +189,7 @@ importers:
         version: 0.4.0
       '@shiguredo/rnnoise-wasm':
         specifier: ^2022.2.0
-        version: 2022.2.0
+        version: 2022.2.0(patch_hash=2210cd939f55719055c49f6af0d4fb888c872ea2a5f101d493866272901545a9)
       '@types/audioworklet':
         specifier: ^0.0.100
         version: 0.0.100
@@ -2530,7 +2533,7 @@ snapshots:
 
   '@sapphi-red/speex-preprocess-wasm@0.4.0': {}
 
-  '@shiguredo/rnnoise-wasm@2022.2.0': {}
+  '@shiguredo/rnnoise-wasm@2022.2.0(patch_hash=2210cd939f55719055c49f6af0d4fb888c872ea2a5f101d493866272901545a9)': {}
 
   '@sindresorhus/is@7.0.2': {}
 
