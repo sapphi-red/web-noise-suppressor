@@ -55,8 +55,8 @@
     "lint": "oxlint",
     "format": "oxfmt",
     "type-check": "tsc --noEmit",
-    "test": "tsx node_modules/uvu/bin.js src .*\\.test\\.ts",
-    "test:e2e": "vitest run"
+    "test": "vitest run --project unit",
+    "test:e2e": "vitest run --project e2e"
   },
   "devDependencies": {
     "@oxc-project/runtime": "0.75.1",
@@ -72,9 +72,7 @@
     "oxlint-tsgolint": "^7.0.2005",
     "playwright": "^1.65.1",
     "tsdown": "^0.23.5",
-    "tsx": "^4.23.15",
     "typescript": "^7.0.2",
-    "uvu": "^0.5.6",
     "vite": "^8.3.6",
     "vitest": "^5.1.1",
     "wasm-feature-detect": "^1.9.0"
