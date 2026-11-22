@@ -74,15 +74,5 @@
     "uvu": "^0.5.6",
     "wasm-feature-detect": "^1.9.0"
   },
-  "packageManager": "pnpm@10.34.9",
-  "pnpm": {
-    "patchedDependencies": {
-      "@shiguredo/rnnoise-wasm@2022.2.0": "patches/@shiguredo__rnnoise-wasm@2022.2.0.patch"
-    },
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "sharp",
-      "workerd"
-    ]
-  }
+  "packageManager": "pnpm@12.21.0"
 }
