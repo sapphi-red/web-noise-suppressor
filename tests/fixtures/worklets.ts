@@ -130,7 +130,9 @@ export function testWasmWorklet(name: keyof typeof wasmWorklets) {
 
     return {
       inputRms: rms(input),
+      readOutputRms,
       measureSettledOutput: () => measureSettledOutput(context, readOutputRms),
+      destroy: () => node.destroy(),
     }
   })
 }
