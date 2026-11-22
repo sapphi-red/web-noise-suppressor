@@ -32,6 +32,14 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./.github/actions/setup-repo
       - run: pnpm run test
+  test-e2e:
+    name: run Vitest Browser Mode tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: ./.github/actions/setup-repo
+      - run: pnpm exec playwright install --with-deps --only-shell chromium
+      - run: pnpm run test:e2e
   type-check:
     name: run type-check
     runs-on: ubuntu-latest

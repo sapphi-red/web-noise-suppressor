@@ -1,5 +1,4 @@
-import { test } from 'uvu'
-import * as assert from 'uvu/assert'
+import { expect, test } from 'vitest'
 import { createOpenCloseStateMachine } from './openCloseStateMachine'
 
 test('openCloseStateMachine should work', () => {
@@ -11,25 +10,23 @@ test('openCloseStateMachine should work', () => {
   })
 
   sm.next(0)
-  assert.is(sm.isOpen(), false, 'CLOSED (1)')
+  expect(sm.isOpen(), 'CLOSED (1)').toBe(false)
   sm.next(0)
-  assert.is(sm.isOpen(), false, 'CLOSED (2)')
+  expect(sm.isOpen(), 'CLOSED (2)').toBe(false)
   sm.next(4) // > openThresholdRms
-  assert.is(sm.isOpen(), true, 'CLOSED -> OPEN')
+  expect(sm.isOpen(), 'CLOSED -> OPEN').toBe(true)
   sm.next(4) // > openThresholdRms
-  assert.is(sm.isOpen(), true, 'OPEN')
+  expect(sm.isOpen(), 'OPEN').toBe(true)
   sm.next(2) // < closeThresholdRms
-  assert.is(sm.isOpen(), true, 'OPEN -> CLOSING: held 0')
+  expect(sm.isOpen(), 'OPEN -> CLOSING: held 0').toBe(true)
   sm.next(2) // < closeThresholdRms
-  assert.is(sm.isOpen(), true, 'CLOSING: held 1')
+  expect(sm.isOpen(), 'CLOSING: held 1').toBe(true)
   sm.next(4) // > openThresholdRms
-  assert.is(sm.isOpen(), true, 'CLOSING -> OPEN')
+  expect(sm.isOpen(), 'CLOSING -> OPEN').toBe(true)
   sm.next(2) // < closeThresholdRms
-  assert.is(sm.isOpen(), true, 'OPEN -> CLOSING: held 0')
+  expect(sm.isOpen(), 'OPEN -> CLOSING: held 0').toBe(true)
   sm.next(2) // < closeThresholdRms
-  assert.is(sm.isOpen(), true, 'CLOSING: held 1')
+  expect(sm.isOpen(), 'CLOSING: held 1').toBe(true)
   sm.next(2) // < closeThresholdRms
-  assert.is(sm.isOpen(), true, 'CLOSING -> CLOSED: held 2')
+  expect(sm.isOpen(), 'CLOSING -> CLOSED: held 2').toBe(true)
 })
-
-test.run()

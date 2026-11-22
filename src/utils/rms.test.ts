@@ -1,14 +1,11 @@
-import { test } from 'uvu'
-import * as assert from 'uvu/assert'
+import { expect, test } from 'vitest'
 import { getRms, convertDbToRms } from './rms'
 
 test('getRms should work', () => {
   const arr = new Float32Array([3, 4, 5])
-  assert.equal(Math.round(getRms(arr) * 10), 41)
+  expect(Math.round(getRms(arr) * 10)).toBe(41)
 })
 
 test('convertDbToRms should work', () => {
-  assert.equal(Math.round(convertDbToRms(5) * 100), 178)
+  expect(Math.round(convertDbToRms(5) * 100)).toBe(178)
 })
-
-test.run()
