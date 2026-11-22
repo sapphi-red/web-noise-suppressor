@@ -17,6 +17,7 @@ class GtcrnWorkletProcessor extends AudioWorkletProcessor {
         this.destroy()
       }
     })
+    this.port.start()
 
     // load
     void (async () => {

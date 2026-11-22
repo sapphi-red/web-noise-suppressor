@@ -18,4 +18,12 @@ for (const name of ['Speex', 'RNNoise', 'GTCRN'] as const) {
       expect(outputRms / worklet.inputRms).toBeLessThan(0.5)
     },
   )
+
+  wasmTest(`${name} stops producing audio after destroy`, async ({ worklet }) => {
+    await expect.poll(worklet.readOutputRms).toBeGreaterThan(0.000001)
+
+    worklet.destroy()
+
+    await expect.poll(worklet.readOutputRms).toBe(0)
+  })
 }
